@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane prefHeight="610.0" prefWidth="720.0" style="-fx-background-color: #d4d4d4;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="HomeController">
+   <children>
+      <Label layoutX="31.0" layoutY="42.0" prefHeight="35.0" prefWidth="175.0" text="Manage Drivers">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="31.0" layoutY="195.0" text="Manage Customers">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="31.0" layoutY="305.0" text="View Customer Balance">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="30.0" layoutY="411.0" text="Manage Invoices">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Button layoutX="55.0" layoutY="83.0" mnemonicParsing="false" text="Add New Driver" />
+      <Button layoutX="55.0" layoutY="123.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="126.0" text="Remove Driver" />
+      <Button layoutX="54.0" layoutY="164.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="126.0" text="Edit Driver Info" />
+      <Button layoutX="55.0" layoutY="230.0" mnemonicParsing="false" text="Add Customer Info" />
+      <Button layoutX="54.0" layoutY="274.0" mnemonicParsing="false" text="Edit Customer Info" />
+      <Button layoutX="55.0" layoutY="340.0" mnemonicParsing="false" text="View A Balance" />
+      <Button layoutX="55.0" layoutY="380.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="121.0" text="Email A Bill" />
+      <Button layoutX="55.0" layoutY="446.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="135.0" text="View History" />
+      <Button fx:id="createAnInvoice" layoutX="55.0" layoutY="485.0" mnemonicParsing="false" onAction="#openInvoiceView" text="Create an Invoice" />
+      <ImageView fitHeight="385.0" fitWidth="477.0" layoutX="305.0" layoutY="-45.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../Documents/for%20powerpoint/HANKSAUCE_600x600_338e1c64-d7f3-465b-856f-ac490e685ba7_1200x1200.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>
