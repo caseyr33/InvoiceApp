@@ -15,7 +15,8 @@ import javafx.event.ActionEvent;
 public class HomeController {
 	@FXML
 	private Button createAnInvoice;
-
+	@FXML
+	private Button viewHistoryButton;
 	// Event Listener on Button[#createAnInvoice].onAction
 	@FXML
 	public void openInvoiceView(ActionEvent event) {
@@ -24,6 +25,23 @@ public class HomeController {
             root = FXMLLoader.load(getClass().getClassLoader().getResource("InvoiceCreator.fxml"));
             Stage stage = new Stage();
             stage.setTitle("Invoice Creator");
+            stage.setScene(new Scene(root));
+            stage.show();
+            // Hide this current window (if this is what you want)
+            ((Node)(event.getSource())).getScene().getWindow().hide();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+	}
+	
+	@FXML
+	public void openViewHistory(ActionEvent event) {
+		Parent root;
+        try {
+            root = FXMLLoader.load(getClass().getClassLoader().getResource("ViewHistory.fxml"));
+            Stage stage = new Stage();
+            stage.setTitle("Invoices");
             stage.setScene(new Scene(root));
             stage.show();
             // Hide this current window (if this is what you want)
