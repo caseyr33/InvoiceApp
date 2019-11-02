@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="337.0" prefWidth="420.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="CustomerEditController">
+   <children>
+      <TextField fx:id="idField" layoutX="29.0" layoutY="78.0" prefHeight="25.0" prefWidth="164.0" />
+      <TextField fx:id="streetField" layoutX="29.0" layoutY="128.0" prefHeight="25.0" prefWidth="343.0" />
+      <Text fx:id="nameLabel" layoutX="29.0" layoutY="74.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name" wrappingWidth="71.13671875" />
+      <Text fx:id="street1Label" layoutX="29.0" layoutY="124.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Street Address" wrappingWidth="111.13671875" />
+      <TextField fx:id="cityField" layoutX="29.0" layoutY="176.0" prefHeight="25.0" prefWidth="164.0" />
+      <Text fx:id="cityLabel" layoutX="29.0" layoutY="172.0" strokeType="OUTSIDE" strokeWidth="0.0" text="City" wrappingWidth="71.13671875" />
+      <TextField fx:id="zipField" layoutX="210.0" layoutY="176.0" prefHeight="25.0" prefWidth="51.0" />
+      <Text fx:id="zipLabel" layoutX="210.0" layoutY="172.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Zip" wrappingWidth="71.13671875" />
+      <Text fx:id="stateLabel" layoutX="275.0" layoutY="172.0" strokeType="OUTSIDE" strokeWidth="0.0" text="State" wrappingWidth="71.13671875" />
+      <TextField fx:id="stateField" layoutX="275.0" layoutY="176.0" prefHeight="25.0" prefWidth="98.0" />
+      <TextField fx:id="emailField" layoutX="29.0" layoutY="226.0" prefHeight="25.0" prefWidth="230.0" />
+      <TextField fx:id="phoneField" layoutX="275.0" layoutY="226.0" prefHeight="25.0" prefWidth="98.0" />
+      <Text fx:id="phoneLabel" layoutX="275.0" layoutY="222.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Phone" wrappingWidth="71.13671875" />
+      <Text fx:id="emailLabel" layoutX="29.0" layoutY="222.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email" wrappingWidth="71.13671875" />
+      <Text fx:id="CustomerHeading" layoutX="159.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Customer">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Text>
+      <Button fx:id="submitButton" layoutX="113.0" layoutY="274.0" mnemonicParsing="false" onAction="#submitButtonClicked" text="Submit" />
+      <Button fx:id="cancelButton" layoutX="235.0" layoutY="274.0" mnemonicParsing="false" onAction="#cancelEdit" text="Cancel" />
+      <Text fx:id="warningLabel" layoutX="67.0" layoutY="264.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+   </children>
+</AnchorPane>
