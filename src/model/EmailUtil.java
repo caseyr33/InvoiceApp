@@ -9,8 +9,6 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-import controller.ViewHistoryController;
-
 public class EmailUtil {
 
 	/**
@@ -20,9 +18,8 @@ public class EmailUtil {
 	 * @param subject
 	 * @param body
 	 */
-	public static void sendEmail(Session session, String toEmail, String subject, String body){
+	public static void sendEmail(Session session, String toEmail, String subject, String body, String invoiceNo){
 		
-		String invoiceNo = ViewHistoryController.getInvoiceNo();
 		try
 	    {
 	      MimeMessage msg = new MimeMessage(session);

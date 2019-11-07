@@ -1,14 +1,10 @@
 package controller;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.ResultSet;
@@ -25,7 +21,6 @@ import javafx.event.ActionEvent;
 
 import javafx.scene.control.ListView;
 import javafx.scene.layout.HBox;
-import javafx.stage.Stage;
 import model.Invoice;
 import model.Product;
 import model.SQLiteConnection;

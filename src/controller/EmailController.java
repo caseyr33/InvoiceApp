@@ -1,15 +1,11 @@
 package controller;
 import java.util.*;
 import javax.mail.*;
-import javax.mail.internet.*;
-
 import model.EmailUtil;
-
-import javax.activation.*;
 
 public class EmailController {
 
-   public static void init(String Email, String Subject, String Body) {
+   public static void init(String Email, String Subject, String Body, String invoiceNo) {
 	   String fromEmail = "hanksauceapp@gmail.com"; 
 	   final String password = "123456789Sauce"; // correct password for gmail id
 	   final String toEmail = Email; // can be any email id
@@ -31,7 +27,7 @@ public class EmailController {
 	   Session session = Session.getDefaultInstance(props, auth);
 	   System.out.println("Session created");
 	   
-	   EmailUtil.sendEmail(session, toEmail,subject, body);
+	   EmailUtil.sendEmail(session, toEmail,subject, body, invoiceNo);
        
    }
 

@@ -1,22 +1,17 @@
 package controller;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.stage.Stage;
 import model.Product;
 import model.SQLiteConnection;
 
 import java.sql.Statement;
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -102,38 +97,38 @@ public class InvoiceCreatorController {
 		paidOnDeliveryButton.setToggleGroup(tg);
 	}
 
-
 	// Event Listener on Button[#submitButton].onAction
 	@FXML
 	public void submitButtonClicked(ActionEvent event) {
 		try {
-			//turns product list into a string
+			// turns product list into a string
 			String prod = "";
-			for(HBox hb :productListView.getItems()) {
+			for (HBox hb : productListView.getItems()) {
 				int prodID = 0;
-				for(Product p: products) {
-					Label match = (Label)hb.getChildren().get(1);
-					if(p.getDescription().equals(match.getText())){
+				for (Product p : products) {
+					Label match = (Label) hb.getChildren().get(1);
+					if (p.getDescription().equals(match.getText())) {
 						prodID = p.getProductID();
 					}
 				}
-				Label quan = (Label)hb.getChildren().get(2);
-				prod = prod.concat(String.valueOf(prodID)+","+quan.getText()+";");
+				Label quan = (Label) hb.getChildren().get(2);
+				prod = prod.concat(String.valueOf(prodID) + "," + quan.getText() + ";");
 			}
-			//handles paidondelivery and net15 radio button input
+			// handles paidondelivery and net15 radio button input
 			boolean paidOnDelivery;
-			if(tg.getSelectedToggle().equals(paidOnDeliveryButton)) {
+			if (tg.getSelectedToggle().equals(paidOnDeliveryButton)) {
 				paidOnDelivery = true;
-			}else {
+			} else {
 				paidOnDelivery = false;
 			}
-			//handles inserting invoice info into invoices table
+			// handles inserting invoice info into invoices table
 			String prodSql = "INSERT INTO invoices (customerID, date, total,"
 					+ "products, paidOnDelivery) VALUES (?, ?, ?, ?, ?)";
-			try (Connection conn = SQLiteConnection.Connector(); PreparedStatement pstmt = conn.prepareStatement(prodSql)) {
+			try (Connection conn = SQLiteConnection.Connector();
+					PreparedStatement pstmt = conn.prepareStatement(prodSql)) {
 				pstmt.setString(1, nameCompany.getText());
 				pstmt.setDate(2, Date.valueOf(date.getValue()));
-				pstmt.setDouble(3, Double.parseDouble(total.getText().substring(2,total.getText().length())));
+				pstmt.setDouble(3, Double.parseDouble(total.getText().substring(2, total.getText().length())));
 				pstmt.setString(4, prod);
 				pstmt.setBoolean(5, paidOnDelivery);
 				pstmt.executeUpdate();
@@ -141,10 +136,11 @@ public class InvoiceCreatorController {
 				warningLabel.setText("Warning: all fields must be filled in");
 				System.out.println(e.getMessage());
 			}
-			//handles inserting customer info into customers table
+			// handles inserting customer info into customers table
 			String custSql = "INSERT INTO customers (customerID, phoneNum, customerEmail,"
 					+ "streetAddress, city, state, zipCode) VALUES (?, ?, ?, ?, ?, ?, ?)";
-			try(Connection conn = SQLiteConnection.Connector(); PreparedStatement pstmt = conn.prepareStatement(custSql)){
+			try (Connection conn = SQLiteConnection.Connector();
+					PreparedStatement pstmt = conn.prepareStatement(custSql)) {
 				pstmt.setString(1, nameCompany.getText());
 				pstmt.setString(2, phoneNumber.getText());
 				pstmt.setString(3, emailAddress.getText());
@@ -153,35 +149,49 @@ public class InvoiceCreatorController {
 				pstmt.setString(6, stateBox.getValue().toString());
 				pstmt.setString(7, zipCode.getText());
 				pstmt.executeUpdate();
-				RadioButton selectedButton = (RadioButton) tg.getSelectedToggle();
-				String prodStr = "";
-				String[] prodArr = prod.split(";");
-				for(int i = 0; i < prodArr.length; i++) {
-					String[] pArr = prodArr[i].split(",");
-					for(Product p: products) {
-						if(p.getProductID() == (Integer.parseInt(pArr[0]))) {
-							prodStr = prodStr.concat(p.getDescription() + " - " +pArr[1] + "\t\n");
-						}
-					}
-				}
-				
-				String idSql = "SELECT * FROM invoices WHERE invoiceID = (SELECT MAX(ID)  FROM invoices);";
-				
-				
-				EmailController.init(emailAddress.getText(), nameCompany.getText(), Date.valueOf(date.getValue())+ "\t" +
-						total.getText() + "\t" +
-						selectedButton.getText() + "\t\n" +
-						prodStr); // executes email controller with emailAddress from Invoice creator fxml form
-			}catch(SQLException e) {
+
+			} catch (SQLException e) {
 				warningLabel.setText("Warning: all fields must be filled in");
 				System.out.println(e.getMessage());
 			}
+			String invoiceNo = "error";
+			String idSql = "SELECT * FROM invoices WHERE invoiceID = (SELECT MAX(invoiceID)  FROM invoices);";
+			try (Connection conn = SQLiteConnection.Connector();
+					Statement stmt = conn.createStatement();
+					ResultSet rs = stmt.executeQuery(idSql)) {
+				// loop through the result set
+				while (rs.next()) {
+					invoiceNo = String.valueOf(rs.getInt("invoiceID"));
+					System.out.println(rs.getInt("invoiceID"));
+				}
+			}catch(SQLException e) {
+				e.printStackTrace();
+			}
+			RadioButton selectedButton = (RadioButton) tg.getSelectedToggle();
+			String prodStr = "";
+			String[] prodArr = prod.split(";");
+			for (int i = 0; i < prodArr.length; i++) {
+				String[] pArr = prodArr[i].split(",");
+				for (Product p : products) {
+					if (p.getProductID() == (Integer.parseInt(pArr[0]))) {
+						prodStr = prodStr.concat(p.getDescription() + " - " + pArr[1] + "\t\n");
+					}
+				}
+			}
+
+			EmailController.init(emailAddress.getText(), nameCompany.getText(), Date.valueOf(date.getValue()) + "\t"
+					+ total.getText() + "\t" + selectedButton.getText() + "\t\n" + prodStr, invoiceNo); // executes email
+																								// controller with
+																								// emailAddress from
+																								// Invoice creator fxml
+																								// form
+
 			((Node) (event.getSource())).getScene().getWindow().hide();
-			
+
 		} catch (NullPointerException e) {
 			warningLabel.setText("Warning: all fields must be filled in");
 		}
-		
+
 	}
 
 	// Event Listener on Button[#cancelButton].onAction
@@ -192,19 +202,19 @@ public class InvoiceCreatorController {
 
 	@FXML
 	public void addProductButtonClicked(ActionEvent event) {
-		HBox newRow = getListViewRow(product.getValue().toString(), quantity.getValue().toString());		
+		HBox newRow = getListViewRow(product.getValue().toString(), quantity.getValue().toString());
 		productListView.getItems().add(newRow);
 		productNames.remove(product.getValue());
 		product.setItems(productNames);
 		quantity.getValueFactory().setValue(1);
 	}
-	
+
 	@FXML
 	public void removeProductButtonClicked(ActionEvent event) {
 		int selectedInd = productListView.getSelectionModel().getSelectedIndex();
 		HBox row = productListView.getItems().get(selectedInd);
-		Label prodName = (Label)row.getChildren().get(1);
-		String t = (String)((Label) row.getChildren().get(3)).getText();
+		Label prodName = (Label) row.getChildren().get(1);
+		String t = (String) ((Label) row.getChildren().get(3)).getText();
 		t = t.substring(1, t.length());
 		grandTotal.setValue(grandTotal.getValue() - Double.parseDouble(t));
 		productNames.add(prodName.getText());
@@ -252,7 +262,7 @@ public class InvoiceCreatorController {
 		content.getChildren().addAll(rate, product, quantity, total);
 		return content;
 	}
-	
+
 	private enum STATE {
 		AK, AL, AR, AS, AZ, CA, CO, CT, DC, DE, FL, GA, GU, HI, IA, ID, IL, IN, KS, KY, LA, MA, MD, ME, MI, MN, MO, MP,
 		MS, MT, NC, ND, NE, NH, NJ, NM, NV, NY, OH, OK, OR, PA, PR, RI, SC, SD, TN, TX, UM, UT, VA, VI, VT, WA, WI, WV,
