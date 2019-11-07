@@ -7,13 +7,8 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="548.0" prefWidth="453.0" style="-fx-background-color: #d4d4d4;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.HomeController">
+<AnchorPane prefHeight="548.0" prefWidth="453.0" style="-fx-background-color: #d4d4d4;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.HomeController">
    <children>
-      <Label layoutX="253.0" layoutY="287.0" prefHeight="35.0" prefWidth="175.0" text="Manage Drivers">
-         <font>
-            <Font size="24.0" />
-         </font>
-      </Label>
       <Label layoutX="28.0" layoutY="404.0" text="Manage Customers">
          <font>
             <Font size="24.0" />
@@ -24,7 +19,6 @@
             <Font size="24.0" />
          </font>
       </Label>
-      <Button fx:id="editUsers" layoutX="253.0" layoutY="324.0" mnemonicParsing="false" onAction="#openViewUsers" prefHeight="31.0" prefWidth="126.0" text="View Driver Info" />
       <Button layoutX="37.0" layoutY="439.0" mnemonicParsing="false" onAction="#openCustomerView" text="Add Customer Info" />
       <Button layoutX="37.0" layoutY="477.0" mnemonicParsing="false" text="Edit Customer Info" />
       <Button fx:id="viewHistoryButton" layoutX="41.0" layoutY="364.0" mnemonicParsing="false" onAction="#openViewHistory" prefHeight="26.0" prefWidth="135.0" text="View History" />

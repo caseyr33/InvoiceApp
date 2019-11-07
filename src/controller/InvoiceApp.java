@@ -10,7 +10,7 @@ public class InvoiceApp extends Application {
       @Override
       public void start(Stage primaryStage) {
             try {                     
-                  Parent root = FXMLLoader.load(getClass().getResource("/view/Login.fxml"));      
+                  Parent root = FXMLLoader.load(getClass().getResource("/view/Login.fxml"));
                   primaryStage.setTitle("Hank Sauce - Login");
                   primaryStage.setScene(new Scene(root));
                   primaryStage.show();        

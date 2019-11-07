@@ -11,7 +11,6 @@ import javafx.scene.control.Label;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.Date;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -29,6 +28,7 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import model.Invoice;
 import model.Product;
+import model.SQLiteConnection;
 
 public class ViewHistoryController {
 	@FXML
@@ -39,11 +39,12 @@ public class ViewHistoryController {
 	private ObservableList<Invoice> invoices = FXCollections.observableArrayList();
 	private ObservableList<Product> products = FXCollections.observableArrayList();
 
+	private static String invoiceNo;
 	
 	public void initialize() {
 		initProducts();
 		String sql = "SELECT invoiceID, customerID, date, total, products, paidOnDelivery FROM invoices";
-		try (Connection conn = this.connect();
+		try (Connection conn = SQLiteConnection.Connector();
 				Statement stmt = conn.createStatement();
 				ResultSet rs = stmt.executeQuery(sql)) {
 			// loop through the result set
@@ -55,6 +56,7 @@ public class ViewHistoryController {
 				x.setTotal(rs.getDouble("total"));
 				x.setProducts(rs.getString("products"));
 				x.setPaidOnDelivery(rs.getBoolean("paidOnDelivery"));
+				invoiceNo = String.valueOf(x.getInvoiceID());
 				invoices.add(x);
 			}
 		} catch (SQLException e) {
@@ -128,7 +130,7 @@ public class ViewHistoryController {
 	//initializes the products list
 	public void initProducts() {
 		String sql = "SELECT productID, description, rate FROM products";
-		try (Connection conn = this.connect();
+		try (Connection conn = SQLiteConnection.Connector();
 				Statement stmt = conn.createStatement();
 				ResultSet rs = stmt.executeQuery(sql)) {
 			// loop through the result set
@@ -145,31 +147,12 @@ public class ViewHistoryController {
 	// Event Listener on Button[#closeButton].onAction
 	@FXML
 	public void closeButtonClicked(ActionEvent event) {
-		Parent root;
-		try {
-			root = FXMLLoader.load(getClass().getResource("/view/Home.fxml"));
-			Stage stage = new Stage();
-			stage.setTitle("Hank Sauce - Administrator View");
-			stage.setScene(new Scene(root));
-			stage.show();
-			// Hide this current window (if this is what you want)
 			((Node) (event.getSource())).getScene().getWindow().hide();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
 	
-	private Connection connect() {
-		// SQLite connection string
-		String url = "jdbc:sqlite:C:/Users/ryanc/SQLite/db/hankdb.db";
-		Connection conn = null;
-		try {
-			conn = DriverManager.getConnection(url);
-		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 		}
-		return conn;
-	}
 	
+	public static String getInvoiceNo() {
+		return invoiceNo +"\t\n";
+	}
 	
 }

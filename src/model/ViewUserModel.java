@@ -1,10 +1,10 @@
 package model;
 
-
 /*Class to represent a USER in the system*/
 public class ViewUserModel {
 	
 	private String name, username;
+	private int user_id;
 	private boolean isAdmin;
 	
 	public ViewUserModel(String name, String username, boolean isAdmin) {
@@ -19,6 +19,11 @@ public class ViewUserModel {
 	
 	public String getUsername() {
 		return this.username;
+	}
+	
+	//Optional...
+	public int getUserId() {
+		return this.user_id;
 	}
 	
 	public String getAdmin() {

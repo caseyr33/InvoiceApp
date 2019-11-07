@@ -33,7 +33,7 @@ public class HomeController {
             stage.setScene(new Scene(root));
             stage.show();
             // Hide this current window (if this is what you want)
-            ((Node)(event.getSource())).getScene().getWindow().hide();
+           // ((Node)(event.getSource())).getScene().getWindow().hide();
         }
         catch (IOException e) {
             e.printStackTrace();
@@ -50,7 +50,7 @@ public class HomeController {
             stage.setScene(new Scene(root));
             stage.show();
             // Hide this current window (if this is what you want)
-            ((Node)(event.getSource())).getScene().getWindow().hide();
+           // ((Node)(event.getSource())).getScene().getWindow().hide();
         }
         catch (IOException e) {
             e.printStackTrace();
@@ -67,7 +67,7 @@ public class HomeController {
             stage.setScene(new Scene(root));
             stage.show();
             // Hide this current window (if this is what you want)
-            ((Node)(event.getSource())).getScene().getWindow().hide();
+            //((Node)(event.getSource())).getScene().getWindow().hide();
         }
         catch (IOException e) {
             e.printStackTrace();
@@ -84,7 +84,7 @@ public class HomeController {
             stage.setScene(new Scene(root));
             stage.show();
             // Hide this current window (if this is what you want)
-            ((Node)(event.getSource())).getScene().getWindow().hide();
+            //((Node)(event.getSource())).getScene().getWindow().hide();
         }
         catch (IOException e) {
             e.printStackTrace();
@@ -100,7 +100,7 @@ public class HomeController {
             stage.setScene(new Scene(root));
             stage.show();
             // Hide this current window (if this is what you want)
-            ((Node)(event.getSource())).getScene().getWindow().hide();
+            //((Node)(event.getSource())).getScene().getWindow().hide();
         }
         catch (IOException e) {
             e.printStackTrace();

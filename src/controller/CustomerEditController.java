@@ -108,7 +108,7 @@ public class CustomerEditController{
 
 		// SQLite connection string
 
-		String url = "jdbc:sqlite:C:hankdb.db";
+		String url = "jdbc:sqlite:hankdb.db";
 
 		Connection conn = null;
 

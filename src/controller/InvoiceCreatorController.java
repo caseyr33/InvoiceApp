@@ -13,12 +13,12 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import model.Product;
+import model.SQLiteConnection;
 
 import java.sql.Statement;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.Date;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -130,7 +130,7 @@ public class InvoiceCreatorController {
 			//handles inserting invoice info into invoices table
 			String prodSql = "INSERT INTO invoices (customerID, date, total,"
 					+ "products, paidOnDelivery) VALUES (?, ?, ?, ?, ?)";
-			try (Connection conn = connect(); PreparedStatement pstmt = conn.prepareStatement(prodSql)) {
+			try (Connection conn = SQLiteConnection.Connector(); PreparedStatement pstmt = conn.prepareStatement(prodSql)) {
 				pstmt.setString(1, nameCompany.getText());
 				pstmt.setDate(2, Date.valueOf(date.getValue()));
 				pstmt.setDouble(3, Double.parseDouble(total.getText().substring(2,total.getText().length())));
@@ -144,7 +144,7 @@ public class InvoiceCreatorController {
 			//handles inserting customer info into customers table
 			String custSql = "INSERT INTO customers (customerID, phoneNum, customerEmail,"
 					+ "streetAddress, city, state, zipCode) VALUES (?, ?, ?, ?, ?, ?, ?)";
-			try(Connection conn = connect(); PreparedStatement pstmt = conn.prepareStatement(custSql)){
+			try(Connection conn = SQLiteConnection.Connector(); PreparedStatement pstmt = conn.prepareStatement(custSql)){
 				pstmt.setString(1, nameCompany.getText());
 				pstmt.setString(2, phoneNumber.getText());
 				pstmt.setString(3, emailAddress.getText());
@@ -153,22 +153,31 @@ public class InvoiceCreatorController {
 				pstmt.setString(6, stateBox.getValue().toString());
 				pstmt.setString(7, zipCode.getText());
 				pstmt.executeUpdate();
+				RadioButton selectedButton = (RadioButton) tg.getSelectedToggle();
+				String prodStr = "";
+				String[] prodArr = prod.split(";");
+				for(int i = 0; i < prodArr.length; i++) {
+					String[] pArr = prodArr[i].split(",");
+					for(Product p: products) {
+						if(p.getProductID() == (Integer.parseInt(pArr[0]))) {
+							prodStr = prodStr.concat(p.getDescription() + " - " +pArr[1] + "\t\n");
+						}
+					}
+				}
+				
+				String idSql = "SELECT * FROM invoices WHERE invoiceID = (SELECT MAX(ID)  FROM invoices);";
+				
+				
+				EmailController.init(emailAddress.getText(), nameCompany.getText(), Date.valueOf(date.getValue())+ "\t" +
+						total.getText() + "\t" +
+						selectedButton.getText() + "\t\n" +
+						prodStr); // executes email controller with emailAddress from Invoice creator fxml form
 			}catch(SQLException e) {
 				warningLabel.setText("Warning: all fields must be filled in");
 				System.out.println(e.getMessage());
 			}
-			Parent root;
-			try {
-				root = FXMLLoader.load(getClass().getResource("/view/Home.fxml"));
-				Stage stage = new Stage();
-				stage.setTitle("Hank Sauce - Administrator View");
-				stage.setScene(new Scene(root));
-				stage.show();
-				// Hide this current window (if this is what you want)
-				((Node) (event.getSource())).getScene().getWindow().hide();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			((Node) (event.getSource())).getScene().getWindow().hide();
+			
 		} catch (NullPointerException e) {
 			warningLabel.setText("Warning: all fields must be filled in");
 		}
@@ -178,18 +187,7 @@ public class InvoiceCreatorController {
 	// Event Listener on Button[#cancelButton].onAction
 	@FXML
 	public void cancelButtonClicked(ActionEvent event) {
-		Parent root;
-		try {
-			root = FXMLLoader.load(getClass().getResource("/view/Home.fxml"));
-			Stage stage = new Stage();
-			stage.setTitle("Hank Sauce - Administrator View");
-			stage.setScene(new Scene(root));
-			stage.show();
-			// Hide this current window (if this is what you want)
-			((Node) (event.getSource())).getScene().getWindow().hide();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		((Node) (event.getSource())).getScene().getWindow().hide();
 	}
 
 	@FXML
@@ -215,7 +213,7 @@ public class InvoiceCreatorController {
 
 	public void initProducts() {
 		String sql = "SELECT productID, description, rate FROM products";
-		try (Connection conn = this.connect();
+		try (Connection conn = SQLiteConnection.Connector();
 				Statement stmt = conn.createStatement();
 				ResultSet rs = stmt.executeQuery(sql)) {
 			// loop through the result set
@@ -229,18 +227,6 @@ public class InvoiceCreatorController {
 			System.out.println(e.getMessage());
 		}
 
-	}
-
-	private Connection connect() {
-		// SQLite connection string
-		String url = "jdbc:sqlite:C:/Users/ryanc/SQLite/db/hankdb.db";
-		Connection conn = null;
-		try {
-			conn = DriverManager.getConnection(url);
-		} catch (SQLException e) {
-			System.out.println(e.getMessage());
-		}
-		return conn;
 	}
 
 	public HBox getListViewRow(String p, String q) {
