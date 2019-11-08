@@ -78,43 +78,51 @@ public class CustomerEditController implements Initializable {
 	}
 
 	@FXML
+	private Text custEditWarning;
+
+	@FXML
 	public void submitButtonClicked(ActionEvent event) {
-
-		try {
-			// handles inserting customer info into customers table
-			try (PreparedStatement pstmt = connection.prepareStatement(custSql)) {
-				pstmt.setString(1, idField.getText());
-				pstmt.setString(2, phoneField.getText());
-				pstmt.setString(3, emailField.getText());
-				pstmt.setString(4, streetField.getText());
-				pstmt.setString(5, cityField.getText());
-				pstmt.setString(6, stateBox.getValue().toString());
-				pstmt.setString(7, zipField.getText());
-				pstmt.executeUpdate();
-
-			} catch (SQLException e) {
-
-				warningLabel.setText("Warning: all fields must be filled in");
-				System.out.println(e.getMessage());
-			}
-
-			Parent root;
-
+		if (idField.getText().isEmpty() || phoneField.getText().isEmpty() || emailField.getText().isEmpty()
+				|| streetField.getText().isEmpty() || cityField.getText().isEmpty() || stateBox.getValue() == null
+				|| zipField.getText().isEmpty()) {
+			custEditWarning.setText("Warning: All fields must be entered to continue");
+		} else {
 			try {
+				// handles inserting customer info into customers table
+				try (PreparedStatement pstmt = connection.prepareStatement(custSql)) {
+					pstmt.setString(1, idField.getText());
+					pstmt.setString(2, phoneField.getText());
+					pstmt.setString(3, emailField.getText());
+					pstmt.setString(4, streetField.getText());
+					pstmt.setString(5, cityField.getText());
+					pstmt.setString(6, stateBox.getValue().toString());
+					pstmt.setString(7, zipField.getText());
+					pstmt.executeUpdate();
 
-				root = FXMLLoader.load(getClass().getResource("/view/CustomerView.fxml"));
-				Stage stage = new Stage();
-				stage.setTitle("Customers");
-				stage.setScene(new Scene(root));
-				stage.show();
-				// Hide this current window (if this is what you want)
-				((Node) (event.getSource())).getScene().getWindow().hide();
-			} catch (IOException e) {
+				} catch (SQLException e) {
+
+					warningLabel.setText("Warning: all fields must be filled in");
+					System.out.println(e.getMessage());
+				}
+
+				Parent root;
+
+				try {
+
+					root = FXMLLoader.load(getClass().getResource("/view/CustomerView.fxml"));
+					Stage stage = new Stage();
+					stage.setTitle("Customers");
+					stage.setScene(new Scene(root));
+					stage.show();
+					// Hide this current window (if this is what you want)
+					((Node) (event.getSource())).getScene().getWindow().hide();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+
+			} catch (NullPointerException e) {
 				e.printStackTrace();
 			}
-
-		} catch (NullPointerException e) {
-			e.printStackTrace();
 		}
 	}
 
