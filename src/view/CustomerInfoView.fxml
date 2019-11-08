@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="466.0" prefWidth="422.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CustomerEditController">
+<AnchorPane prefHeight="486.0" prefWidth="422.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CustomerEditController">
    <children>
       <TextField fx:id="idField" layoutX="29.0" layoutY="78.0" prefHeight="25.0" prefWidth="237.0" />
       <TextField fx:id="streetField" layoutX="29.0" layoutY="141.0" prefHeight="25.0" prefWidth="343.0" />
@@ -27,8 +27,9 @@
             <Font size="24.0" />
          </font>
       </Text>
-      <Button fx:id="submitButton" layoutX="121.0" layoutY="418.0" mnemonicParsing="false" onAction="#submitButtonClicked" text="Submit" />
-      <Button fx:id="cancelButton" layoutX="239.0" layoutY="418.0" mnemonicParsing="false" onAction="#cancelEdit" text="Cancel" />
+      <Button fx:id="submitButton" layoutX="121.0" layoutY="440.0" mnemonicParsing="false" onAction="#submitButtonClicked" text="Submit" />
+      <Button fx:id="cancelButton" layoutX="239.0" layoutY="440.0" mnemonicParsing="false" onAction="#cancelEdit" text="Cancel" />
       <Text fx:id="warningLabel" layoutX="67.0" layoutY="264.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+      <Text fx:id="custEditWarning" fill="RED" layoutX="94.0" layoutY="424.0" strokeType="OUTSIDE" strokeWidth="0.0" />
    </children>
 </AnchorPane>
