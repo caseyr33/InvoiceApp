@@ -10,19 +10,23 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import model.CustomerInfo;
 
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ResourceBundle;
-
+import model.SQLiteConnection;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -50,8 +54,6 @@ private TableColumn<CustomerInfo, String>  zipTable;
 ObservableList<CustomerInfo> listview = FXCollections.observableArrayList();
 private Connection connection;
 
-	@FXML
-	private Button cancelCust;
 
 	@FXML
 	public void cancelCustomerView(ActionEvent event) {
@@ -69,17 +71,51 @@ private Connection connection;
             e.printStackTrace();
         }
 	}
+	
+	@FXML
+	private TextField searchBox;
+	
+	@FXML
+	public void searchCustomer(ActionEvent event) {
+		System.out.println("The entered text was: " + searchBox.getText());
+		if(searchBox.getText().isEmpty() != true) {
+			nameTable.setCellValueFactory(new PropertyValueFactory<>("name"));
+			phoneTable.setCellValueFactory(new PropertyValueFactory<>("phone"));
+			emailTable.setCellValueFactory(new PropertyValueFactory<>("email"));
+			addressTable.setCellValueFactory(new PropertyValueFactory<>("address"));
+			cityTable.setCellValueFactory(new PropertyValueFactory<>("city"));
+			stateTable.setCellValueFactory(new PropertyValueFactory<>("state"));
+			zipTable.setCellValueFactory(new PropertyValueFactory<>("zip"));
+			try {
+				customerTable.getItems().clear();
+				String sql = "SELECT * FROM customers WHERE customerID=\'" + searchBox.getText() + "\'";
+				Statement stmt = connection.createStatement();
+				ResultSet rs = stmt.executeQuery(sql);
+				while(rs.next()) {
+					listview.add(new CustomerInfo(rs.getString("customerID"), rs.getString("phoneNum"), rs.getString("customerEmail"),
+							rs.getString("streetAddress"),rs.getString("city"), rs.getString("state"), rs.getString("zipCode")));
+					
+				}
+				customerTable.setItems(listview);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}else {
+			customerTable.getItems().clear();
+			openSearch();
+		}
+	}
 
 	@FXML
 	public void addCustomer(ActionEvent event) {
 		Parent root;
         try {
+        	
             root = FXMLLoader.load(getClass().getResource("/view/CustomerInfoView.fxml"));
             Stage stage = new Stage();
             stage.setTitle("Customer Info");
             stage.setScene(new Scene(root));
             stage.show();
-            // Hide this current window (if this is what you want)
             ((Node)(event.getSource())).getScene().getWindow().hide();
         }
         catch (IOException e) {
@@ -87,9 +123,22 @@ private Connection connection;
         }
 		
 	}
+	@FXML
+	private Button searchButton;
+		
+	@FXML
+	public void deleteCustomer(ActionEvent event) {
+		
+	}
+	
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		connection = SQLiteConnection.Connector();
+		openSearch();
+				}
+
+	private void openSearch() {
 		nameTable.setCellValueFactory(new PropertyValueFactory<>("name"));
 		phoneTable.setCellValueFactory(new PropertyValueFactory<>("phone"));
 		emailTable.setCellValueFactory(new PropertyValueFactory<>("email"));
@@ -97,9 +146,7 @@ private Connection connection;
 		cityTable.setCellValueFactory(new PropertyValueFactory<>("city"));
 		stateTable.setCellValueFactory(new PropertyValueFactory<>("state"));
 		zipTable.setCellValueFactory(new PropertyValueFactory<>("zip"));
-		
 		try {
-			connection = connect();
 			String sql = "SELECT * FROM customers";
 			Statement stmt = connection.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
@@ -113,26 +160,6 @@ private Connection connection;
 			e.printStackTrace();
 		}
 	}
-	
-	private Connection connect() {
 
-		// SQLite connection string
 
-		String url = "jdbc:sqlite:hankdb.db";
-
-		Connection conn = null;
-
-		try {
-
-			conn = DriverManager.getConnection(url);
-
-		} catch (SQLException e) {
-
-			System.out.println(e.getMessage());
-
-		}
-
-		return conn;
-
-	}
 }
