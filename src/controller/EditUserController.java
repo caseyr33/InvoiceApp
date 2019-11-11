@@ -2,6 +2,7 @@ package controller;
 
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import javafx.scene.control.RadioButton;
@@ -11,11 +12,15 @@ import model.UserMainModel;
 import model.ViewUserModel;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.Alert.AlertType;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Hyperlink;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 
 public class EditUserController implements Initializable {
@@ -33,7 +38,11 @@ public class EditUserController implements Initializable {
 	@FXML
 	private Hyperlink linkChangePwd;	
 	@FXML
-	private PasswordField txtNew;	
+	private PasswordField txtNew;
+	@FXML
+	private PasswordField txtConfirm;
+	@FXML
+	private Label errorMessage;
 	@FXML
 	private ToggleGroup user_privilege;
 	@FXML
@@ -44,11 +53,9 @@ public class EditUserController implements Initializable {
 	private UserMainModel userModel = new UserMainModel();
 	private ViewUserModel currentUser;
 
-
 	@FXML
 	public void changePwd(ActionEvent event) {
 		this.panePwd.setDisable(false);
-		// Check....
 	}
 
 	@Override
@@ -75,8 +82,25 @@ public class EditUserController implements Initializable {
 		final String selectedValue = selectedBtn.getText();
 		final String isAdmin = selectedValue.equals("Administrator") ? "1" : "0";
 		if(!this.panePwd.isDisabled()) {
-			//Change password clicked			
-			this.userModel.updatePassword(newUsername, this.txtNew.getText());
+			//Change password pane opened
+			String newPwd = this.txtNew.getText();
+			String conf = this.txtConfirm.getText();
+			if(!newPwd.trim().isEmpty()) {				
+				if(newPwd.equals(conf)) {
+					Alert alert = new Alert(AlertType.CONFIRMATION);
+					alert.setTitle("Change Confirmation");
+					alert.setHeaderText(null);
+					alert.setContentText("Confirm Password Change?");
+					Optional<ButtonType> answer = alert.showAndWait();
+					if (answer.get() == ButtonType.OK) {
+						this.userModel.updatePassword(newUsername, newPwd);	
+						System.out.println("Password changed");
+					}
+				}else {
+					this.errorMessage.setText("Passwords do not match");
+					return;
+				}					
+			}			
 		}		
 		if (this.userModel.updateUser(name, this.currentUser.getUsername(), newUsername, isAdmin)) {
 			this.userModel.goToView(event);

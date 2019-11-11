@@ -19,8 +19,7 @@
             <Font size="24.0" />
          </font>
       </Label>
-      <Button layoutX="37.0" layoutY="439.0" mnemonicParsing="false" onAction="#openCustomerView" text="Add Customer Info" />
-      <Button layoutX="37.0" layoutY="477.0" mnemonicParsing="false" text="Edit Customer Info" />
+      <Button layoutX="37.0" layoutY="439.0" mnemonicParsing="false" onAction="#openCustomerView" text="View Customer Info" />
       <Button fx:id="viewHistoryButton" layoutX="41.0" layoutY="364.0" mnemonicParsing="false" onAction="#openViewHistory" prefHeight="26.0" prefWidth="135.0" text="View History" />
       <Button fx:id="createAnInvoice" layoutX="41.0" layoutY="327.0" mnemonicParsing="false" onAction="#openInvoiceView" text="Create an Invoice" />
       <ImageView fitHeight="369.0" fitWidth="408.0" layoutX="42.0" layoutY="-64.0" pickOnBounds="true" preserveRatio="true">

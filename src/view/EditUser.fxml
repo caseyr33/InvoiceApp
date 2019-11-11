@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane id="paneAddUser" disable="false" prefHeight="459.0" prefWidth="500.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="controller.EditUserController">
+<AnchorPane id="paneAddUser" disable="false" prefHeight="542.0" prefWidth="500.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="controller.EditUserController">
   <!-- TODO Add Nodes -->
   <children>
     <Label layoutX="134.0" layoutY="22.0" text="Edit User Information">
@@ -15,25 +15,12 @@
       </font>
     </Label>
     <TextField id="name" fx:id="txtName" editable="true" focusTraversable="false" layoutX="167.0" layoutY="106.0" prefHeight="34.0" prefWidth="225.0" promptText="" text="" />
-    <Button fx:id="submit" layoutX="153.0" layoutY="387.0" mnemonicParsing="false" onAction="#updateUserInfo" text="Submit">
-      <font>
-        <Font size="18.0" fx:id="x2" />
-      </font>
-    </Button>
-    <Label layoutX="103.0" layoutY="112.0" prefHeight="22.0" prefWidth="44.0" text="Name">
-      <font>
-        <Font size="15.0" fx:id="x1" />
-      </font>
-    </Label>
     <TextField id="username" fx:id="txtUsername" focusTraversable="false" layoutX="167.0" layoutY="159.0" prefHeight="34.0" prefWidth="225.0" text="" />
-    <Label font="$x1" layoutX="75.0" layoutY="159.0" prefHeight="22.0" prefWidth="72.0" text="Username" />
-    <RadioButton fx:id="isAdmin" font="$x1" layoutX="125.0" layoutY="331.0" mnemonicParsing="false" text="Administrator">
-      <toggleGroup>
-        <ToggleGroup fx:id="user_privilege" />
-      </toggleGroup>
-    </RadioButton>
-    <RadioButton fx:id="isDriver" font="$x1" layoutX="298.0" layoutY="331.0" mnemonicParsing="false" text="Driver" toggleGroup="$user_privilege" />
-    <Button fx:id="cancel" font="$x2" layoutX="265.0" layoutY="388.0" mnemonicParsing="false" onAction="#close" prefHeight="32.0" prefWidth="85.0" text="Cancel" />
+    <Hyperlink id="changePwd" fx:id="linkChangePwd" layoutX="211.0" layoutY="234.0" onAction="#changePwd" text="Change Password">
+      <font>
+        <Font size="13.0" />
+      </font>
+    </Hyperlink>
     <Pane fx:id="panePwd" disable="true" layoutX="71.0" layoutY="246.0" prefHeight="135.0" prefWidth="346.0" visible="true">
       <children>
         <PasswordField fx:id="txtNew" layoutX="95.0" layoutY="25.0" prefHeight="32.0" prefWidth="225.0" />
@@ -42,12 +29,31 @@
             <Font size="12.0" fx:id="x3" />
           </font>
         </Label>
+        <PasswordField id="txtNew" fx:id="txtConfirm" layoutX="95.0" layoutY="65.0" prefHeight="32.0" prefWidth="225.0" />
+        <Label font="$x3" layoutX="14.0" layoutY="68.0" prefHeight="22.0" prefWidth="72.0" text="Confirm New" />
+        <Label fx:id="errorMessage" layoutX="100.0" layoutY="102.0" text="" textFill="RED">
+          <font>
+            <Font size="14.0" />
+          </font>
+        </Label>
       </children>
     </Pane>
-    <Hyperlink id="changePwd" fx:id="linkChangePwd" layoutX="211.0" layoutY="234.0" onAction="#changePwd" text="Change Password">
+    <RadioButton fx:id="isAdmin" layoutX="125.0" layoutY="403.0" mnemonicParsing="false" text="Administrator">
       <font>
-        <Font size="13.0" />
+        <Font size="15.0" fx:id="x1" />
       </font>
-    </Hyperlink>
+      <toggleGroup>
+        <ToggleGroup fx:id="user_privilege" />
+      </toggleGroup>
+    </RadioButton>
+    <RadioButton fx:id="isDriver" font="$x1" layoutX="298.0" layoutY="403.0" mnemonicParsing="false" text="Driver" toggleGroup="$user_privilege" />
+    <Button fx:id="cancel" layoutX="265.0" layoutY="460.0" mnemonicParsing="false" onAction="#close" prefHeight="32.0" prefWidth="85.0" text="Cancel">
+      <font>
+        <Font size="18.0" fx:id="x2" />
+      </font>
+    </Button>
+    <Button fx:id="submit" font="$x2" layoutX="153.0" layoutY="459.0" mnemonicParsing="false" onAction="#updateUserInfo" text="Submit" />
+    <Label font="$x1" layoutX="103.0" layoutY="112.0" prefHeight="22.0" prefWidth="44.0" text="Name" />
+    <Label font="$x1" layoutX="75.0" layoutY="159.0" prefHeight="22.0" prefWidth="72.0" text="Username" />
   </children>
 </AnchorPane>

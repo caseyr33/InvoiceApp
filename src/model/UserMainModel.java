@@ -3,7 +3,6 @@ package model;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Optional;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -33,76 +32,87 @@ public class UserMainModel {
 		return this.connection;
 	}
 
-	 public boolean isVerified(final String user, final String pass) throws SQLException {
-	        PreparedStatement preparedStatement = null;
-	        ResultSet resultSet = null;
-	        final String query = "select * from users where username = ? and password = ?";
-	        try {
-	            preparedStatement = this.connection.prepareStatement(query);
-	            preparedStatement.setString(1, user);
-	            preparedStatement.setString(2, pass);
-	            resultSet = preparedStatement.executeQuery();
-	            return resultSet.next();
-	        }
-	        catch (Exception e) {
-	        	e.printStackTrace();
-	            return false;
-	        }
-	        finally {
-	           preparedStatement.close();
-	           resultSet.close();
-	        }
-	    }
-	
-	public boolean addNewUser(final String name, final String username, final String password, final String isAdmin)
-			throws SQLException {
-		// First check if record exists
-		final String checkQuery = "select count(*) as found from users where username=?";
-		PreparedStatement preparedStatement = this.connection.prepareStatement(checkQuery);
-		preparedStatement.setString(1, username);
-		ResultSet rs = preparedStatement.executeQuery();
-		boolean found = rs.getBoolean(1);
-		if (found) {
-			// Record exists already
-			Alert alert = new Alert(AlertType.ERROR);
-			alert.setContentText("Duplicate Username found");
-			alert.setHeaderText(null);
-			alert.show();
-			preparedStatement.close();
+	public boolean isVerified(final String user, final String pass) throws SQLException {
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		final String query = "select * from users where username = ? and password = ?";
+		try {
+			preparedStatement = this.connection.prepareStatement(query);
+			preparedStatement.setString(1, user);
+			preparedStatement.setString(2, pass);
+			resultSet = preparedStatement.executeQuery();
+			return resultSet.next();
+		} catch (Exception e) {
+			e.printStackTrace();
 			return false;
+		} finally {
+			preparedStatement.close();
+			resultSet.close();
 		}
-		final String query = "insert into users (Name, username, password, isAdmin) values(?,?,?,?)";
-		preparedStatement = this.connection.prepareStatement(query);
-		preparedStatement.setString(1, name);
-		preparedStatement.setString(2, username);
-		preparedStatement.setString(3, password);
-		preparedStatement.setString(4, isAdmin);
-		preparedStatement.executeUpdate();
-		preparedStatement.close();
-		return true;
 	}
 
-	public boolean updateUser(String name, String oldUsername, String newUsername, String isAdmin) throws SQLException {
-		String query = "update users set Name=?, username=?, isAdmin=? where username=?";
-		PreparedStatement preparedStatement = this.connection.prepareStatement(query);
-		preparedStatement.setString(1, name);
-		preparedStatement.setString(2, newUsername);		
-		preparedStatement.setString(3, isAdmin);
-		preparedStatement.setString(4, oldUsername);
-		preparedStatement.executeUpdate();
-		preparedStatement.close();
-		return true;
+	public boolean addNewUser(final String name, final String username, final String password, final String isAdmin) {
+		// First check if record exists
+		final String checkQuery = "select count(*) as found from users where username=?";		
+		try (Connection conn = SQLiteConnection.Connector()) {
+			PreparedStatement preparedStatement = conn.prepareStatement(checkQuery);
+			preparedStatement.setString(1, username);
+			ResultSet rs = preparedStatement.executeQuery();
+			boolean found = rs.getBoolean(1);
+			if (found) {
+				// Record exists already
+				Alert alert = new Alert(AlertType.ERROR);
+				alert.setContentText("Duplicate Username found");
+				alert.setHeaderText(null);
+				alert.show();			
+			}else {
+				final String query = "insert into users (Name, username, password, isAdmin) values(?,?,?,?)";
+				preparedStatement = conn.prepareStatement(query);
+				preparedStatement.setString(1, name);
+				preparedStatement.setString(2, username);
+				preparedStatement.setString(3, password);
+				preparedStatement.setString(4, isAdmin);
+				preparedStatement.executeUpdate();
+				preparedStatement.close();
+				return true;	
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
 	}
-	
+
+	public boolean updateUser(String name, String oldUsername, String newUsername, String isAdmin){
+		try {
+			String query = "update users set Name=?, username=?, isAdmin=? where username=?";
+			PreparedStatement preparedStatement = this.connection.prepareStatement(query);
+			preparedStatement.setString(1, name);
+			preparedStatement.setString(2, newUsername);
+			preparedStatement.setString(3, isAdmin);
+			preparedStatement.setString(4, oldUsername);
+			preparedStatement.executeUpdate();
+			preparedStatement.close();
+			return true;	
+		}catch(SQLException e) {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setContentText("Username " + newUsername + " already taken");
+			alert.setHeaderText(null);
+			alert.show();			
+		}
+		return false;
+	}
+
 	public void updatePassword(String username, String newPassword) throws SQLException {
 		String query = "update users set password=? where username=?";
+		//hash password string...
 		PreparedStatement preparedStatement = this.connection.prepareStatement(query);
 		preparedStatement.setString(1, newPassword);
 		preparedStatement.setString(2, username);
 		preparedStatement.executeUpdate();
 		preparedStatement.close();
 	}
-	
+
 	public boolean remove(String username) throws SQLException {
 		Alert alert = new Alert(AlertType.CONFIRMATION);
 		alert.setTitle("Delete Confirmation");
@@ -139,8 +149,8 @@ public class UserMainModel {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-	}	
-	
+	}
+
 	public void goToHome(ActionEvent event) {
 		Parent root;
 		try {
@@ -168,24 +178,23 @@ public class UserMainModel {
 			e.printStackTrace();
 		}
 	}
-	
-	public boolean isAdmin(String user){
-    	String sql = "SELECT username, isAdmin FROM users";    
-    	try (Connection conn = this.connection;
+
+	public boolean isAdmin(String user) {
+		String sql = "SELECT username, isAdmin FROM users";
+		try (Connection conn = this.connection;
 				Statement stmt = conn.createStatement();
 				ResultSet rs = stmt.executeQuery(sql)) {
-       
-    		while(rs.next()) {
-    			if(rs.getString("username").equals(user)) {
-    				return rs.getBoolean("isAdmin");
-    			}
-    		}
-    		return false;
-        }
-        catch (SQLException e) {
-        	e.printStackTrace();
-        	return false;
-        }
-    }
+
+			while (rs.next()) {
+				if (rs.getString("username").equals(user)) {
+					return rs.getBoolean("isAdmin");
+				}
+			}
+			return false;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
 
 }

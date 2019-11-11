@@ -15,15 +15,10 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import model.CustomerInfo;
 
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ResourceBundle;
 import model.SQLiteConnection;
@@ -57,19 +52,7 @@ private Connection connection;
 
 	@FXML
 	public void cancelCustomerView(ActionEvent event) {
-		Parent root;
-        try {
-            root = FXMLLoader.load(getClass().getResource("/view/Home.fxml"));
-            Stage stage = new Stage();
-            stage.setTitle("Hank Sauce - Administrator View");
-            stage.setScene(new Scene(root));
-            stage.show();
-            // Hide this current window (if this is what you want)
-            ((Node)(event.getSource())).getScene().getWindow().hide();
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
+		((Node)(event.getSource())).getScene().getWindow().hide();
 	}
 	
 	@FXML
