@@ -13,6 +13,7 @@ public class InvoiceApp extends Application {
                   Parent root = FXMLLoader.load(getClass().getResource("/view/Login.fxml"));
                   primaryStage.setTitle("Hank Sauce - Login");
                   primaryStage.setScene(new Scene(root));
+                  root.getStylesheets().add("darkmode.css");
                   primaryStage.show();        
               } catch(Exception e) {
                   e.printStackTrace();
