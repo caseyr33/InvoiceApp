@@ -60,7 +60,7 @@ private Connection connection;
 	
 	@FXML
 	public void searchCustomer(ActionEvent event) {
-		System.out.println("The entered text was: " + searchBox.getText());
+		//System.out.println("The entered text was: " + searchBox.getText());
 		if(searchBox.getText().isEmpty() != true) {
 			nameTable.setCellValueFactory(new PropertyValueFactory<>("name"));
 			phoneTable.setCellValueFactory(new PropertyValueFactory<>("phone"));
@@ -134,6 +134,7 @@ private Connection connection;
 			Statement stmt = connection.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
 			while(rs.next()) {
+				System.out.println(rs.getString("zipCode"));
 				listview.add(new CustomerInfo(rs.getString("customerID"), rs.getString("phoneNum"), rs.getString("customerEmail"),
 						rs.getString("streetAddress"),rs.getString("city"), rs.getString("state"), rs.getString("zipCode")));
 				

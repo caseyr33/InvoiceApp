@@ -40,7 +40,7 @@ public class CustomerInfo {
 		return this.state;
 	}
 
-	public String getZIP() {
+	public String getZip() {
 		return this.zip;
 	}
 

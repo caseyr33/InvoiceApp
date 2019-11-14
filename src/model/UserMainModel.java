@@ -16,6 +16,9 @@ import javafx.stage.Stage;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.io.IOException;
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 
 public class UserMainModel {
@@ -39,7 +42,8 @@ public class UserMainModel {
 		try {
 			preparedStatement = this.connection.prepareStatement(query);
 			preparedStatement.setString(1, user);
-			preparedStatement.setString(2, pass);
+			String pwd = generateHash(pass);
+			preparedStatement.setString(2, pwd);
 			resultSet = preparedStatement.executeQuery();
 			return resultSet.next();
 		} catch (Exception e) {
@@ -51,9 +55,9 @@ public class UserMainModel {
 		}
 	}
 
-	public boolean addNewUser(final String name, final String username, final String password, final String isAdmin) {
+	public boolean addNewUser(final String name, final String username, final String password, final String isAdmin){
 		// First check if record exists
-		final String checkQuery = "select count(*) as found from users where username=?";		
+		final String checkQuery = "select count(*) as found from users where username=?";
 		try (Connection conn = SQLiteConnection.Connector()) {
 			PreparedStatement preparedStatement = conn.prepareStatement(checkQuery);
 			preparedStatement.setString(1, username);
@@ -64,26 +68,28 @@ public class UserMainModel {
 				Alert alert = new Alert(AlertType.ERROR);
 				alert.setContentText("Duplicate Username found");
 				alert.setHeaderText(null);
-				alert.show();			
-			}else {
+				alert.show();
+			} else {
 				final String query = "insert into users (Name, username, password, isAdmin) values(?,?,?,?)";
 				preparedStatement = conn.prepareStatement(query);
 				preparedStatement.setString(1, name);
 				preparedStatement.setString(2, username);
-				preparedStatement.setString(3, password);
+				// Encrypt password
+				String pwd = generateHash(password);
+				preparedStatement.setString(3, pwd);
 				preparedStatement.setString(4, isAdmin);
 				preparedStatement.executeUpdate();
 				preparedStatement.close();
-				return true;	
+				return true;
 			}
-			
-		} catch (SQLException e) {
+
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return false;
 	}
 
-	public boolean updateUser(String name, String oldUsername, String newUsername, String isAdmin){
+	public boolean updateUser(String name, String oldUsername, String newUsername, String isAdmin) {
 		try {
 			String query = "update users set Name=?, username=?, isAdmin=? where username=?";
 			PreparedStatement preparedStatement = this.connection.prepareStatement(query);
@@ -93,24 +99,29 @@ public class UserMainModel {
 			preparedStatement.setString(4, oldUsername);
 			preparedStatement.executeUpdate();
 			preparedStatement.close();
-			return true;	
-		}catch(SQLException e) {
+			return true;
+		} catch (SQLException e) {
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setContentText("Username " + newUsername + " already taken");
 			alert.setHeaderText(null);
-			alert.show();			
+			alert.show();
 		}
 		return false;
 	}
 
-	public void updatePassword(String username, String newPassword) throws SQLException {
-		String query = "update users set password=? where username=?";
-		//hash password string...
-		PreparedStatement preparedStatement = this.connection.prepareStatement(query);
-		preparedStatement.setString(1, newPassword);
-		preparedStatement.setString(2, username);
-		preparedStatement.executeUpdate();
-		preparedStatement.close();
+	public void updatePassword(String username, String newPassword){
+		try {
+			String query = "update users set password=? where username=?";
+			// hash password string...
+			String pwd = generateHash(newPassword);
+			PreparedStatement preparedStatement = this.connection.prepareStatement(query);
+			preparedStatement.setString(1, pwd);
+			preparedStatement.setString(2, username);
+			preparedStatement.executeUpdate();
+			preparedStatement.close();	
+		}catch(Exception e) {
+			System.out.println("Password Update Error");
+		}		
 	}
 
 	public boolean remove(String username) throws SQLException {
@@ -195,6 +206,19 @@ public class UserMainModel {
 			e.printStackTrace();
 			return false;
 		}
+	}
+
+	private String generateHash(String in) throws NoSuchAlgorithmException {
+		String salt = "TheSauceBawss";
+		String str = in + salt;
+		MessageDigest sha = MessageDigest.getInstance("SHA-1");
+		byte[] bytes = sha.digest(str.getBytes());
+		BigInteger no = new BigInteger(1, bytes);
+		String hash = no.toString(16);
+		while (hash.length() < 32) {
+			hash = "0" + hash;
+		}
+		return hash;
 	}
 
 }

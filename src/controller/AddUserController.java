@@ -37,7 +37,7 @@ public class AddUserController {
 	}
 
 	@FXML
-	public void addUser(ActionEvent event) {
+	public void addUser(ActionEvent event){
 		this.lablMessage.setText("");
 		final String name = this.txtName.getText();
 		final String username = this.txtUsername.getText();
@@ -62,7 +62,7 @@ public class AddUserController {
 			}	
 		}else {
 			this.lablMessage.setText("Please Fill ALL Fields before Submit");
-		}		
+		}			
 	}
 
 	public boolean passwordConfirmed() throws NullPointerException {
