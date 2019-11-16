@@ -134,7 +134,6 @@ private Connection connection;
 			Statement stmt = connection.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
 			while(rs.next()) {
-				System.out.println(rs.getString("zipCode"));
 				listview.add(new CustomerInfo(rs.getString("customerID"), rs.getString("phoneNum"), rs.getString("customerEmail"),
 						rs.getString("streetAddress"),rs.getString("city"), rs.getString("state"), rs.getString("zipCode")));
 				

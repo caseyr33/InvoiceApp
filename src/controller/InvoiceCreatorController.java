@@ -10,8 +10,10 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import model.Product;
 import model.SQLiteConnection;
+import model.Session;
 
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -75,6 +77,8 @@ public class InvoiceCreatorController {
 	private Button removeProductButton;
 	@FXML
 	private Label warningLabel;
+	@FXML
+	private Button searchButton;
 
 	private ObservableList<String> productNames = FXCollections.observableArrayList();
 	private ObservableList<Product> products = FXCollections.observableArrayList();
@@ -95,6 +99,7 @@ public class InvoiceCreatorController {
 		// sets net15button and paidOndeliveryButton to togglegroup
 		net15Button.setToggleGroup(tg);
 		paidOnDeliveryButton.setToggleGroup(tg);
+		date.setValue(LocalDate.now());
 	}
 
 	// Event Listener on Button[#submitButton].onAction
@@ -123,7 +128,7 @@ public class InvoiceCreatorController {
 			}
 			// handles inserting invoice info into invoices table
 			String prodSql = "INSERT INTO invoices (customerID, date, total,"
-					+ "products, paidOnDelivery) VALUES (?, ?, ?, ?, ?)";
+					+ "products, paidOnDelivery, driver) VALUES (?, ?, ?, ?, ?, ?)";
 			try (Connection conn = SQLiteConnection.Connector();
 					PreparedStatement pstmt = conn.prepareStatement(prodSql)) {
 				pstmt.setString(1, nameCompany.getText());
@@ -131,29 +136,48 @@ public class InvoiceCreatorController {
 				pstmt.setDouble(3, Double.parseDouble(total.getText().substring(2, total.getText().length())));
 				pstmt.setString(4, prod);
 				pstmt.setBoolean(5, paidOnDelivery);
+				pstmt.setString(6, Session.getUser());
 				pstmt.executeUpdate();
 			} catch (SQLException e) {
 				warningLabel.setText("Warning: all fields must be filled in");
 				System.out.println(e.getMessage());
 			}
-			// handles inserting customer info into customers table
-			String custSql = "INSERT INTO customers (customerID, phoneNum, customerEmail,"
-					+ "streetAddress, city, state, zipCode) VALUES (?, ?, ?, ?, ?, ?, ?)";
-			try (Connection conn = SQLiteConnection.Connector();
-					PreparedStatement pstmt = conn.prepareStatement(custSql)) {
-				pstmt.setString(1, nameCompany.getText());
-				pstmt.setString(2, phoneNumber.getText());
-				pstmt.setString(3, emailAddress.getText());
-				pstmt.setString(4, streetAddress.getText());
-				pstmt.setString(5, city.getText());
-				pstmt.setString(6, stateBox.getValue().toString());
-				pstmt.setString(7, zipCode.getText());
-				pstmt.executeUpdate();
+			//checks if customerID already exists
+			boolean customerExists = false;
+			String query = "SELECT * FROM customers WHERE customerID =\'" + nameCompany.getText()+"\'";
+			try (Connection conn = SQLiteConnection.Connector()){
+				Statement stmt = conn.createStatement();
+				ResultSet rs = stmt.executeQuery(query);
+				if(rs.next()) {
+					customerExists = true;
+				}
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			
+			if(!customerExists) {
+				// handles inserting customer info into customers table
+				String custSql = "INSERT INTO customers (customerID, phoneNum, customerEmail,"
+						+ "streetAddress, city, state, zipCode) VALUES (?, ?, ?, ?, ?, ?, ?)";
+				try (Connection conn = SQLiteConnection.Connector();
+						PreparedStatement pstmt = conn.prepareStatement(custSql)) {
+					pstmt.setString(1, nameCompany.getText());
+					pstmt.setString(2, phoneNumber.getText());
+					pstmt.setString(3, emailAddress.getText());
+					pstmt.setString(4, streetAddress.getText());
+					pstmt.setString(5, city.getText());
+					pstmt.setString(6, stateBox.getValue().toString());
+					pstmt.setString(7, zipCode.getText());
+					pstmt.executeUpdate();
 
-			} catch (SQLException e) {
-				warningLabel.setText("Warning: all fields must be filled in");
-				System.out.println(e.getMessage());
+				} catch (SQLException e) {
+					warningLabel.setText("Warning: all fields must be filled in");
+					System.out.println(e.getMessage());
+				}
 			}
+			
+			
+			//gets info for email
 			String invoiceNo = "error";
 			String idSql = "SELECT * FROM invoices WHERE invoiceID = (SELECT MAX(invoiceID)  FROM invoices);";
 			try (Connection conn = SQLiteConnection.Connector();
@@ -162,7 +186,6 @@ public class InvoiceCreatorController {
 				// loop through the result set
 				while (rs.next()) {
 					invoiceNo = String.valueOf(rs.getInt("invoiceID"));
-					System.out.println(rs.getInt("invoiceID"));
 				}
 			}catch(SQLException e) {
 				e.printStackTrace();
@@ -179,19 +202,64 @@ public class InvoiceCreatorController {
 				}
 			}
 
+			//handles emails
 			EmailController.init(emailAddress.getText(), nameCompany.getText(), Date.valueOf(date.getValue()) + "\t"
 					+ total.getText() + "\t" + selectedButton.getText() + "\t\n" + prodStr, invoiceNo); // executes email
 																								// controller with
 																								// emailAddress from
 																								// Invoice creator fxml
 																								// form
-
+			//hides window
 			((Node) (event.getSource())).getScene().getWindow().hide();
 
 		} catch (NullPointerException e) {
 			warningLabel.setText("Warning: all fields must be filled in");
 		}
 
+	}
+	
+	@FXML
+	public void searchButtonClicked(ActionEvent event) {
+		boolean customerExists = false;
+		String query = "SELECT * FROM customers WHERE customerID =\'" + nameCompany.getText() +"\'";
+		try (Connection conn = SQLiteConnection.Connector()){
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+			if(rs.next()) {
+				customerExists = true;
+			}
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+		if(customerExists) {
+			String sql = "SELECT * FROM customers WHERE customerID=\'" + nameCompany.getText() + "\'";
+			try(Connection conn = SQLiteConnection.Connector()){
+				Statement stmt = conn.createStatement();
+				ResultSet rs = stmt.executeQuery(sql);
+				streetAddress.setText(rs.getString("streetAddress"));
+				emailAddress.setText(rs.getString("customerEmail"));
+				phoneNumber.setText(rs.getString("phoneNum"));
+				city.setText(rs.getString("city"));
+				zipCode.setText(rs.getString("zipCode"));
+				stateBox.setValue(STATE.valueOf(rs.getString("state")));
+				
+			}catch(SQLException e2) {
+				e2.printStackTrace();
+			}
+		}else {
+			warningLabel.setText("Customer does not exist");
+		}	
+	}
+	
+	@FXML
+	public void clearButtonClicked(ActionEvent event) {
+		nameCompany.setText("");
+		streetAddress.setText("");
+		emailAddress.setText("");
+		phoneNumber.setText("");
+		city.setText("");
+		zipCode.setText("");
+		stateBox.valueProperty().set(null);
 	}
 
 	// Event Listener on Button[#cancelButton].onAction

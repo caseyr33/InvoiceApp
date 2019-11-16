@@ -45,7 +45,8 @@ public class EmailUtil {
 	      System.out.println("EMail Sent Successfully!!");
 	    }
 	    catch (Exception e) {
-	      e.printStackTrace();
+	    System.out.println("Invalid Email Address");
+	      //e.printStackTrace();
 	    }
 	}
 

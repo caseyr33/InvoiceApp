@@ -30,6 +30,7 @@ public class HomeController {
             Stage stage = new Stage();
             stage.setTitle("Invoice Creator");
             stage.setScene(new Scene(root));
+            stage.setResizable(false);
             stage.show();
             // Hide this current window (if this is what you want)
            // ((Node)(event.getSource())).getScene().getWindow().hide();
@@ -47,6 +48,7 @@ public class HomeController {
             Stage stage = new Stage();
             stage.setTitle("Invoices");
             stage.setScene(new Scene(root));
+            stage.setResizable(false);
             stage.show();
             // Hide this current window (if this is what you want)
            // ((Node)(event.getSource())).getScene().getWindow().hide();
@@ -64,6 +66,7 @@ public class HomeController {
             Stage stage = new Stage();
             stage.setTitle("Invoice Creator");
             stage.setScene(new Scene(root));
+            stage.setResizable(false);
             stage.show();
             // Hide this current window (if this is what you want)
             //((Node)(event.getSource())).getScene().getWindow().hide();
@@ -81,6 +84,7 @@ public class HomeController {
             Stage stage = new Stage();
             stage.setTitle("Invoice Creator");
             stage.setScene(new Scene(root));
+            stage.setResizable(false);
             stage.show();
             // Hide this current window (if this is what you want)
             //((Node)(event.getSource())).getScene().getWindow().hide();
@@ -97,6 +101,7 @@ public class HomeController {
             Stage stage = new Stage();
             stage.setTitle("Customer View");
             stage.setScene(new Scene(root));
+            stage.setResizable(false);
             stage.show();
             // Hide this current window (if this is what you want)
             //((Node)(event.getSource())).getScene().getWindow().hide();

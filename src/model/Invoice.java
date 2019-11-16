@@ -8,6 +8,7 @@ public class Invoice{
 		private double total;
 		private String products;
 		private boolean paidOnDelivery;
+		private String driver;
 		
 		public void setInvoiceID(int x) {
 			invoiceID = x;
@@ -27,7 +28,9 @@ public class Invoice{
 		public void setPaidOnDelivery(boolean x) {
 			paidOnDelivery = x;
 		}
-		
+		public void setDriver(String x) {
+			driver = x;
+		}
 		public int getInvoiceID() {
 			return invoiceID;
 		}
@@ -45,5 +48,8 @@ public class Invoice{
 		}
 		public boolean getPaidOnDelivery() {
 			return paidOnDelivery;
+		}
+		public String getDriver() {
+			return driver;
 		}
 	}

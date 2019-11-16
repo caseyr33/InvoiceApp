@@ -1,5 +1,6 @@
 package controller;
 
+import model.Session;
 import model.UserMainModel;
 
 import java.io.IOException;
@@ -29,11 +30,13 @@ public class LoginController {
 	public void login(final ActionEvent event) throws SQLException, IOException {
 		if (this.userModel.isVerified(this.txtUsername.getText(), this.txtPassword.getText())) {
 			System.out.println("Logged in successfully!");
+			Session.setUser(this.txtUsername.getText());
 			 if (userModel.isAdmin(this.txtUsername.getText())) {
 					final Parent root = (Parent) FXMLLoader.load(this.getClass().getResource("/view/Home.fxml"));
 					final Stage stage = new Stage();
 					stage.setTitle("Hank Sauce - Administator View");
 					stage.setScene(new Scene(root));
+					stage.setResizable(false);
 					stage.show();
 					((Node) event.getSource()).getScene().getWindow().hide();
 				}else {
@@ -41,6 +44,7 @@ public class LoginController {
 					final Stage stage = new Stage();
 					stage.setTitle("Hank Sauce - Driver View");
 					stage.setScene(new Scene(root));
+					stage.setResizable(false);
 					stage.show();
 					((Node) event.getSource()).getScene().getWindow().hide();
 				}

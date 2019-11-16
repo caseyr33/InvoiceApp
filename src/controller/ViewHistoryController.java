@@ -38,7 +38,7 @@ public class ViewHistoryController {
 	
 	public void initialize() {
 		initProducts();
-		String sql = "SELECT invoiceID, customerID, date, total, products, paidOnDelivery FROM invoices";
+		String sql = "SELECT invoiceID, customerID, date, total, products, paidOnDelivery, driver FROM invoices";
 		try (Connection conn = SQLiteConnection.Connector();
 				Statement stmt = conn.createStatement();
 				ResultSet rs = stmt.executeQuery(sql)) {
@@ -51,6 +51,7 @@ public class ViewHistoryController {
 				x.setTotal(rs.getDouble("total"));
 				x.setProducts(rs.getString("products"));
 				x.setPaidOnDelivery(rs.getBoolean("paidOnDelivery"));
+				x.setDriver(rs.getString("driver"));
 				invoiceNo = String.valueOf(x.getInvoiceID());
 				invoices.add(x);
 			}
@@ -72,18 +73,20 @@ public class ViewHistoryController {
 					Label total = new Label(String.format("$%.2f", inv.getTotal()));
 					Label grandTotal = new Label("Grand Total: ");
 					Label paidOnDelivery = new Label();
+					Label driver = new Label(inv.getDriver());
 					if(inv.getPaidOnDelivery()) {
 						paidOnDelivery.setText("Paid on Delivery");
 					}else {
 						paidOnDelivery.setText("Net 15");
 					}
 					invID.setMinWidth(30);
-					custID.setMinWidth(300);
+					custID.setMinWidth(200);
 					date.setMinWidth(100);
 					total.setMinWidth(100);
 					grandTotal.setMinWidth(75);
-					paidOnDelivery.setMinWidth(50);
-					row.getChildren().addAll(invID, date, custID, grandTotal, total, paidOnDelivery);
+					paidOnDelivery.setMinWidth(150);
+					driver.setMinWidth(100);
+					row.getChildren().addAll(invID, date, custID, grandTotal, total, paidOnDelivery, driver);
 				}else {
 					String prodName = "";
 					double r = 0;
