@@ -155,6 +155,7 @@ public class UserMainModel {
 			Stage stage = new Stage();
 			stage.setTitle("Add New User");
 			stage.setScene(new Scene(root));
+			stage.setResizable(false);
 			stage.show();
 			((Node) (event.getSource())).getScene().getWindow().hide();
 		} catch (IOException e) {
@@ -169,6 +170,7 @@ public class UserMainModel {
 			Stage stage = new Stage();
 			stage.setTitle("Hank Sauce Home");
 			stage.setScene(new Scene(root));
+			stage.setResizable(false);
 			stage.show();
 			((Node) (event.getSource())).getScene().getWindow().hide();
 		} catch (IOException e) {

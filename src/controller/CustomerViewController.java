@@ -98,6 +98,7 @@ private Connection connection;
             Stage stage = new Stage();
             stage.setTitle("Customer Info");
             stage.setScene(new Scene(root));
+            stage.setResizable(false);
             stage.show();
             ((Node)(event.getSource())).getScene().getWindow().hide();
         }

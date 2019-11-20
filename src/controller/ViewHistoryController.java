@@ -34,7 +34,6 @@ public class ViewHistoryController {
 	private ObservableList<Invoice> invoices = FXCollections.observableArrayList();
 	private ObservableList<Product> products = FXCollections.observableArrayList();
 
-	private static String invoiceNo;
 	
 	public void initialize() {
 		initProducts();
@@ -52,7 +51,6 @@ public class ViewHistoryController {
 				x.setProducts(rs.getString("products"));
 				x.setPaidOnDelivery(rs.getBoolean("paidOnDelivery"));
 				x.setDriver(rs.getString("driver"));
-				invoiceNo = String.valueOf(x.getInvoiceID());
 				invoices.add(x);
 			}
 		} catch (SQLException e) {
@@ -80,7 +78,7 @@ public class ViewHistoryController {
 						paidOnDelivery.setText("Net 15");
 					}
 					invID.setMinWidth(30);
-					custID.setMinWidth(200);
+					custID.setMinWidth(250);
 					date.setMinWidth(100);
 					total.setMinWidth(100);
 					grandTotal.setMinWidth(75);
@@ -102,7 +100,7 @@ public class ViewHistoryController {
 					Label quantity = new Label(arr[1]);
 					Label rate = new Label(String.format("@ $%.2f", r));
 					Label total = new Label(String.format("$%.2f", r*Integer.parseInt(arr[1])));
-					padding.setMinWidth(300);
+					padding.setMinWidth(250);
 					product.setMinWidth(200);
 					quantity.setMinWidth(30);
 					rate.setMinWidth(100);
@@ -149,8 +147,6 @@ public class ViewHistoryController {
 	
 		}
 	
-	public static String getInvoiceNo() {
-		return invoiceNo +"\t\n";
-	}
+	
 	
 }

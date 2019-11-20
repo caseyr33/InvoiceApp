@@ -136,7 +136,7 @@ public class InvoiceCreatorController {
 				pstmt.setDouble(3, Double.parseDouble(total.getText().substring(2, total.getText().length())));
 				pstmt.setString(4, prod);
 				pstmt.setBoolean(5, paidOnDelivery);
-				pstmt.setString(6, Session.getUser());
+				pstmt.setString(6, Session.getName());
 				pstmt.executeUpdate();
 			} catch (SQLException e) {
 				warningLabel.setText("Warning: all fields must be filled in");
