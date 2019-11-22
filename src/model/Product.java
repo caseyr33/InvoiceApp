@@ -8,7 +8,7 @@ public class Product {
 			productID = id;
 			description = desc;
 			rate = r;
-		}
+		}		
 		
 		public int getProductID() {
 			return productID;
