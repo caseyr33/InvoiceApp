@@ -185,6 +185,7 @@ public class UserMainModel {
 			Stage stage = new Stage();
 			stage.setTitle("View Users");
 			stage.setScene(new Scene(root));
+			stage.setResizable(false);
 			stage.show();
 			((Node) (event.getSource())).getScene().getWindow().hide();
 		} catch (IOException e) {

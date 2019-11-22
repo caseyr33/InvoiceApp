@@ -7,7 +7,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="300.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoginController">
+<AnchorPane prefHeight="300.0" prefWidth="500.0" style="-fx-background-color: #858585;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoginController">
   <!-- TODO Add Nodes -->
   <children>
       <ImageView fitHeight="175.0" fitWidth="181.0" layoutX="176.0" layoutY="-10.0" pickOnBounds="true" preserveRatio="true">
@@ -15,8 +15,8 @@
             <Image url="@../../HANKSAUCE_600x600_338e1c64-d7f3-465b-856f-ac490e685ba7_1200x1200.png" />
          </image>
       </ImageView>
-    <Button fx:id="loginButton" layoutX="210.0" layoutY="231.0" mnemonicParsing="false" onAction="#login" prefHeight="32.0" prefWidth="91.0" text="Login" />
-    <TextField id="username" fx:id="txtUsername" layoutX="163.0" layoutY="131.0" prefHeight="33.0" prefWidth="200.0" promptText="Username" />
-    <PasswordField fx:id="txtPassword" layoutX="163.0" layoutY="174.0" onAction="#login" prefHeight="33.0" prefWidth="200.0" promptText="Password" />
+    <Button fx:id="loginButton" layoutX="210.0" layoutY="231.0" mnemonicParsing="false" onAction="#login" prefHeight="32.0" prefWidth="91.0" style="-fx-background-color: black;" text="Login" textFill="WHITE" />
+    <TextField id="username" fx:id="txtUsername" layoutX="163.0" layoutY="131.0" prefHeight="33.0" prefWidth="200.0" promptText="Username" style="-fx-border-color: black;" />
+    <PasswordField fx:id="txtPassword" layoutX="163.0" layoutY="174.0" onAction="#login" prefHeight="33.0" prefWidth="200.0" promptText="Password" style="-fx-border-color: black;" />
   </children>
 </AnchorPane>

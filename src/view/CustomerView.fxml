@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import java.lang.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="456.0" prefWidth="785.0" style="-fx-background-color: silver;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CustomerViewController">
+<AnchorPane prefHeight="456.0" prefWidth="785.0" style="-fx-background-color: #858585;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CustomerViewController">
    <children>
-      <TextField fx:id="searchBox" layoutX="22.0" layoutY="26.0" prefHeight="25.0" prefWidth="272.0" />
-      <Button fx:id="searchButton" layoutX="294.0" layoutY="26.0" mnemonicParsing="false" onAction="#searchCustomer" text="Search" />
-      <Button fx:id="addNewCust" layoutX="496.0" layoutY="26.0" mnemonicParsing="false" onAction="#addCustomer" text="Add New" />
+      <TextField fx:id="searchBox" layoutX="22.0" layoutY="26.0" prefHeight="25.0" prefWidth="272.0" style="-fx-border-color: black;" />
+      <Button fx:id="searchButton" layoutX="294.0" layoutY="26.0" mnemonicParsing="false" onAction="#searchCustomer" style="-fx-background-color: black;" text="Search" textFill="WHITE" />
+      <Button fx:id="addNewCust" layoutX="496.0" layoutY="26.0" mnemonicParsing="false" onAction="#addCustomer" style="-fx-background-color: black;" text="Add New" textFill="WHITE" />
 <!--       <Button fx:id="editCust" layoutX="574.0" layoutY="26.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="66.0" text="Edit" /> -->
 <!--       <Button fx:id="deleteButton" layoutX="653.0" layoutY="26.0" mnemonicParsing="false" onAction="#deleteCustomer" text="Delete" /> -->
-      <TableView fx:id="customerTable" layoutX="27.0" layoutY="73.0" prefHeight="310.0" prefWidth="744.0">
+      <TableView fx:id="customerTable" layoutX="27.0" layoutY="73.0" prefHeight="310.0" prefWidth="744.0" style="-fx-border-color: black;">
         <columns>
           <TableColumn fx:id="nameTable" prefWidth="118.0" text="Company Name" />
             <TableColumn fx:id="phoneTable" prefWidth="79.0" text="Phone" />
@@ -23,6 +24,6 @@
             <TableColumn fx:id="zipTable" prefWidth="85.0" text="ZIP" />
         </columns>
       </TableView>
-      <Button fx:id="cancelCust" layoutX="361.0" layoutY="407.0" mnemonicParsing="false" onAction="#cancelCustomerView" prefHeight="25.0" prefWidth="66.0" text="Cancel" />
+      <Button fx:id="cancelCust" layoutX="361.0" layoutY="407.0" mnemonicParsing="false" onAction="#cancelCustomerView" prefHeight="25.0" prefWidth="66.0" style="-fx-background-color: black;" text="Cancel" textFill="WHITE" />
    </children>
 </AnchorPane>

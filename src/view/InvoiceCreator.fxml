@@ -14,33 +14,40 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="714.0" prefWidth="633.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.InvoiceCreatorController">
+<AnchorPane prefHeight="714.0" prefWidth="633.0" style="-fx-background-color: #858585;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.InvoiceCreatorController">
    <children>
-      <TextField fx:id="nameCompany" layoutX="165.0" layoutY="42.0" prefHeight="31.0" prefWidth="326.0" />
-      <TextField fx:id="streetAddress" layoutX="165.0" layoutY="82.0" prefHeight="31.0" prefWidth="326.0" />
-      <TextField fx:id="city" layoutX="163.0" layoutY="123.0" prefHeight="31.0" prefWidth="326.0" />
-      <ComboBox fx:id="stateBox" layoutX="167.0" layoutY="171.0" prefHeight="31.0" prefWidth="78.0" />
-      <Label layoutX="266.0" layoutY="178.0" text="Zip Code:" />
-      <TextField fx:id="zipCode" layoutX="332.0" layoutY="171.0" prefHeight="31.0" prefWidth="90.0" />
-      <TextField fx:id="emailAddress" layoutX="165.0" layoutY="216.0" prefHeight="31.0" prefWidth="325.0" />
-      <TextField fx:id="phoneNumber" layoutX="165.0" layoutY="264.0" prefHeight="30.0" prefWidth="143.0" />
-      <DatePicker fx:id="date" layoutX="360.0" layoutY="263.0" prefHeight="31.0" prefWidth="131.0" />
-      <Label layoutX="319.0" layoutY="270.0" text="Date:" />
+      <TextField fx:id="nameCompany" layoutX="165.0" layoutY="42.0" prefHeight="31.0" prefWidth="326.0" style="-fx-border-color: black;" />
+      <TextField fx:id="streetAddress" layoutX="165.0" layoutY="82.0" prefHeight="31.0" prefWidth="326.0" style="-fx-border-color: black;" />
+      <TextField fx:id="city" layoutX="163.0" layoutY="123.0" prefHeight="31.0" prefWidth="326.0" style="-fx-border-color: black;" />
+      <ComboBox fx:id="stateBox" layoutX="167.0" layoutY="171.0" prefHeight="31.0" prefWidth="78.0" style="-fx-border-color: black;" />
+      <Label layoutX="266.0" layoutY="178.0" text="Zip Code:">
+         <font>
+            <Font size="14.0" />
+         </font></Label>
+      <TextField fx:id="zipCode" layoutX="332.0" layoutY="171.0" prefHeight="31.0" prefWidth="90.0" style="-fx-border-color: black;" />
+      <TextField fx:id="emailAddress" layoutX="165.0" layoutY="216.0" prefHeight="31.0" prefWidth="325.0" style="-fx-border-color: black;" />
+      <TextField fx:id="phoneNumber" layoutX="165.0" layoutY="264.0" prefHeight="30.0" prefWidth="143.0" style="-fx-border-color: black;" />
+      <DatePicker fx:id="date" layoutX="360.0" layoutY="263.0" prefHeight="31.0" prefWidth="131.0" style="-fx-border-color: black;" />
+      <Label layoutX="319.0" layoutY="270.0" text="Date:">
+         <font>
+            <Font size="14.0" />
+         </font></Label>
       <HBox fx:id="HBox1" layoutX="97.0" layoutY="367.0" prefHeight="26.0" prefWidth="463.0">
          <children>
-            <ComboBox fx:id="product" prefHeight="26.0" prefWidth="234.0" />
-            <Spinner fx:id="quantity" prefHeight="26.0" prefWidth="70.0">
+            <ComboBox fx:id="product" prefHeight="26.0" prefWidth="234.0" style="-fx-border-color: black;" />
+            <Spinner fx:id="quantity" prefHeight="26.0" prefWidth="70.0" style="-fx-border-color: black;">
                <HBox.margin>
                   <Insets left="10.0" />
                </HBox.margin>
             </Spinner>
-            <Button fx:id="addProductButton" mnemonicParsing="false" onAction="#addProductButtonClicked" prefHeight="26.0" prefWidth="109.0" text="Add Product">
+            <Button fx:id="addProductButton" mnemonicParsing="false" onAction="#addProductButtonClicked" prefHeight="26.0" prefWidth="109.0" style="-fx-background-color: black;" text="Add Product" textFill="WHITE">
                <HBox.margin>
                   <Insets left="10.0" />
                </HBox.margin>
             </Button>
-            <Button fx:id="removeProductButton" mnemonicParsing="false" onAction="#removeProductButtonClicked" text="-">
+            <Button fx:id="removeProductButton" mnemonicParsing="false" onAction="#removeProductButtonClicked" style="-fx-background-color: black;" text="-" textFill="WHITE">
                <HBox.margin>
                   <Insets left="10.0" />
                </HBox.margin>
@@ -61,22 +68,43 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label text="Rate" />
-            <Label text="Product" GridPane.columnIndex="1" />
+            <Label text="Rate">
+               <font>
+                  <Font size="14.0" />
+               </font></Label>
+            <Label text="Product" GridPane.columnIndex="1">
+               <font>
+                  <Font size="14.0" />
+               </font></Label>
             <Label prefHeight="18.0" prefWidth="69.0" text="Quantity" GridPane.columnIndex="2">
                <GridPane.margin>
                   <Insets left="10.0" />
                </GridPane.margin>
+               <font>
+                  <Font size="14.0" />
+               </font>
             </Label>
-            <Label prefHeight="18.0" prefWidth="62.0" text="Total" GridPane.columnIndex="3" />
+            <Label prefHeight="18.0" prefWidth="62.0" text="Total" GridPane.columnIndex="3">
+               <font>
+                  <Font size="14.0" />
+               </font></Label>
          </children>
       </GridPane>
-      <RadioButton fx:id="net15Button" layoutX="97.0" layoutY="589.0" mnemonicParsing="false" text="Net 15" />
-      <RadioButton fx:id="paidOnDeliveryButton" layoutX="97.0" layoutY="618.0" mnemonicParsing="false" text="Paid On Delivery" />
-      <Label layoutX="333.0" layoutY="589.0" text="Grand Total:" />
-      <Button fx:id="submitButton" layoutX="404.0" layoutY="658.0" mnemonicParsing="false" onAction="#submitButtonClicked" text="Submit" />
-      <Button fx:id="cancelButton" layoutX="326.0" layoutY="658.0" mnemonicParsing="false" onAction="#cancelButtonClicked" text="Cancel" />
-      <ListView fx:id="productListView" layoutX="88.0" layoutY="435.0" prefHeight="148.0" prefWidth="478.0" />
+      <RadioButton fx:id="net15Button" layoutX="97.0" layoutY="589.0" mnemonicParsing="false" text="Net 15">
+         <font>
+            <Font size="14.0" />
+         </font></RadioButton>
+      <RadioButton fx:id="paidOnDeliveryButton" layoutX="97.0" layoutY="618.0" mnemonicParsing="false" text="Paid On Delivery">
+         <font>
+            <Font size="14.0" />
+         </font></RadioButton>
+      <Label layoutX="333.0" layoutY="589.0" text="Grand Total:">
+         <font>
+            <Font size="14.0" />
+         </font></Label>
+      <Button fx:id="submitButton" layoutX="404.0" layoutY="658.0" mnemonicParsing="false" onAction="#submitButtonClicked" style="-fx-background-color: black;" text="Submit" textFill="WHITE" />
+      <Button fx:id="cancelButton" layoutX="326.0" layoutY="658.0" mnemonicParsing="false" onAction="#cancelButtonClicked" style="-fx-background-color: black;" text="Cancel" textFill="WHITE" />
+      <ListView fx:id="productListView" layoutX="88.0" layoutY="435.0" prefHeight="148.0" prefWidth="478.0" style="-fx-border-color: black;" />
       <Label fx:id="total" layoutX="365.0" layoutY="613.0" prefHeight="26.0" prefWidth="77.0" />
       <GridPane layoutX="26.0" layoutY="33.0" prefHeight="261.0" prefWidth="131.0">
         <columnConstraints>
@@ -91,16 +119,34 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label text="Name/Company:" />
-            <Label text="Street Address:" GridPane.rowIndex="1" />
-            <Label text="City:" GridPane.rowIndex="2" />
-            <Label text="State:" GridPane.rowIndex="3" />
-            <Label text="Email Address:" GridPane.rowIndex="4" />
-            <Label text="Phone Number:" GridPane.rowIndex="5" />
+            <Label text="Name/Company:">
+               <font>
+                  <Font size="14.0" />
+               </font></Label>
+            <Label text="Street Address:" GridPane.rowIndex="1">
+               <font>
+                  <Font size="14.0" />
+               </font></Label>
+            <Label text="City:" GridPane.rowIndex="2">
+               <font>
+                  <Font size="14.0" />
+               </font></Label>
+            <Label text="State:" GridPane.rowIndex="3">
+               <font>
+                  <Font size="14.0" />
+               </font></Label>
+            <Label text="Email Address:" GridPane.rowIndex="4">
+               <font>
+                  <Font size="14.0" />
+               </font></Label>
+            <Label text="Phone Number:" GridPane.rowIndex="5">
+               <font>
+                  <Font size="14.0" />
+               </font></Label>
          </children>
       </GridPane>
       <Label fx:id="warningLabel" layoutX="199.0" layoutY="319.0" style="-fx-text-fill: red;" />
-      <Button fx:id="searchButton" layoutX="501.0" layoutY="45.0" mnemonicParsing="false" onAction="#searchButtonClicked" prefHeight="26.0" prefWidth="77.0" text="Search" />
-      <Button fx:id="clearButton" layoutX="501.0" layoutY="82.0" mnemonicParsing="false" onAction="#clearButtonClicked" prefHeight="26.0" prefWidth="78.0" text="Clear" />
+      <Button fx:id="searchButton" layoutX="501.0" layoutY="45.0" mnemonicParsing="false" onAction="#searchButtonClicked" prefHeight="26.0" prefWidth="77.0" style="-fx-background-color: black;" text="Search" textFill="WHITE" />
+      <Button fx:id="clearButton" layoutX="501.0" layoutY="82.0" mnemonicParsing="false" onAction="#clearButtonClicked" prefHeight="26.0" prefWidth="78.0" style="-fx-background-color: black;" text="Clear" textFill="WHITE" />
    </children>
 </AnchorPane>

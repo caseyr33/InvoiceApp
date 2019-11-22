@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="paneAddUser" prefHeight="617.0" prefWidth="500.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="controller.AddUserController">
+<AnchorPane fx:id="paneAddUser" prefHeight="617.0" prefWidth="500.0" style="-fx-background-color: #858585;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AddUserController">
   <!-- TODO Add Nodes -->
   <children>
     <Label layoutX="163.0" layoutY="22.0" text="Add New User">
@@ -14,10 +17,10 @@
         <Font size="25.0" />
       </font>
     </Label>
-    <TextField id="name" fx:id="txtName" layoutX="109.0" layoutY="106.0" prefHeight="34.0" prefWidth="284.0" promptText="First, Last" text="" />
-    <TextField id="username" fx:id="txtUsername" layoutX="109.0" layoutY="193.0" prefHeight="34.0" prefWidth="284.0" text="" />
-    <PasswordField fx:id="txtPassword" layoutX="110.0" layoutY="286.0" prefHeight="35.0" prefWidth="190.0" promptText="" />
-    <PasswordField id="txtPassword" fx:id="txtConfirm" layoutX="110.0" layoutY="348.0" prefHeight="35.0" prefWidth="190.0" promptText="" />
+    <TextField id="name" fx:id="txtName" layoutX="109.0" layoutY="106.0" prefHeight="34.0" prefWidth="284.0" promptText="First, Last" style="-fx-border-color: black;" text="" />
+    <TextField id="username" fx:id="txtUsername" layoutX="109.0" layoutY="193.0" prefHeight="34.0" prefWidth="284.0" style="-fx-border-color: black;" text="" />
+    <PasswordField fx:id="txtPassword" layoutX="110.0" layoutY="286.0" prefHeight="35.0" prefWidth="190.0" promptText="" style="-fx-border-color: black;" />
+    <PasswordField id="txtPassword" fx:id="txtConfirm" layoutX="110.0" layoutY="348.0" prefHeight="35.0" prefWidth="190.0" promptText="" style="-fx-border-color: black;" />
     <RadioButton layoutX="249.0" layoutY="425.0" mnemonicParsing="false" text="Administrator">
       <font>
         <Font size="14.0" fx:id="x3" />
@@ -27,12 +30,12 @@
       </toggleGroup>
     </RadioButton>
     <RadioButton font="$x3" layoutX="250.0" layoutY="457.0" mnemonicParsing="false" text="Driver" toggleGroup="$user_privilege" />
-    <Button fx:id="submit" layoutX="152.0" layoutY="541.0" mnemonicParsing="false" onAction="#addUser" text="Submit">
+    <Button fx:id="submit" layoutX="152.0" layoutY="541.0" mnemonicParsing="false" onAction="#addUser" style="-fx-background-color: black;" text="Submit" textFill="WHITE">
       <font>
         <Font size="17.0" fx:id="x2" />
       </font>
     </Button>
-    <Button id="submit" fx:id="cancel" font="$x2" layoutX="266.0" layoutY="541.0" mnemonicParsing="false" onAction="#toView" text="Cancel" />
+    <Button id="submit" fx:id="cancel" font="$x2" layoutX="266.0" layoutY="541.0" mnemonicParsing="false" onAction="#toView" style="-fx-background-color: black;" text="Cancel" textFill="WHITE" />
     <Label layoutX="108.0" layoutY="78.0" prefHeight="22.0" prefWidth="51.0" text="Name">
       <font>
         <Font size="15.0" fx:id="x1" />
