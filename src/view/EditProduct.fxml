@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="447.0" prefWidth="510.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="controller.EditProductController">
+  <!-- TODO Add Nodes -->
+  <children>
+    <Label layoutX="141.0" layoutY="29.0" text="Modify Product Menu">
+      <font>
+        <Font size="25.0" />
+      </font>
+    </Label>
+    <TextField fx:id="txtDesc" layoutX="121.0" layoutY="134.0" prefHeight="43.0" prefWidth="268.0" promptText="Description" />
+    <TextField fx:id="txtRate" layoutX="121.0" layoutY="226.0" prefHeight="34.0" prefWidth="134.0" promptText="Rate" />
+    <TextField fx:id="txtId" layoutX="305.0" layoutY="226.0" prefHeight="34.0" prefWidth="84.0" promptText="ID" />
+    <Button id="txtBtn" fx:id="submit" layoutX="264.0" layoutY="293.0" mnemonicParsing="false" onAction="#editProduct" prefHeight="34.0" prefWidth="121.0" text="Submit Change">
+      <font>
+        <Font size="14.0" />
+      </font>
+    </Button>
+    <Label layoutX="121.0" layoutY="102.0" text="Product Description">
+      <font>
+        <Font size="15.0" fx:id="x1" />
+      </font>
+    </Label>
+    <Label font="$x1" layoutX="121.0" layoutY="202.0" text="Rate" />
+    <Label fx:id="lablMissing" layoutX="167.0" layoutY="301.0" text="" textFill="#ff3333">
+      <font>
+        <Font size="13.0" fx:id="x2" />
+      </font>
+    </Label>
+    <Button id="txtBtn" fx:id="BtnCancel" font="$x2" layoutX="324.0" layoutY="344.0" mnemonicParsing="false" onAction="#toView" prefHeight="28.0" text="Cancel" />
+    <Label font="$x1" layoutX="305.0" layoutY="202.0" text="ProductID" />
+  </children>
+</AnchorPane>
