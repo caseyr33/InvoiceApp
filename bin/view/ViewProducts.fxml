@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="475.0" prefWidth="640.0" style="-fx-background-color: #858585;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ViewProductsController">
+  <!-- TODO Add Nodes -->
+  <children>
+    <TableView id="users" fx:id="products" layoutX="56.0" layoutY="85.0" prefHeight="349.0" prefWidth="406.0" style="-fx-border-color: black;">
+      <columns>
+        <TableColumn fx:id="colProductId" maxWidth="5000.0" minWidth="10.0" prefWidth="43.0" text="ID" />
+        <TableColumn fx:id="colProductName" maxWidth="5000.0" minWidth="10.0" prefWidth="294.0" text="Description" />
+        <TableColumn fx:id="colRate" maxWidth="5000.0" minWidth="10.0" prefWidth="68.0" text="Rate" />
+      </columns>
+    </TableView>
+    <Button fx:id="btnEdit" layoutX="499.0" layoutY="227.0" mnemonicParsing="false" onAction="#editProduct" prefHeight="38.0" prefWidth="90.0" style="-fx-background-color: black;" text="Edit" textFill="WHITE">
+      <font>
+        <Font size="15.0" fx:id="x1" />
+      </font>
+    </Button>
+    <Button fx:id="btnRemove" font="$x1" layoutX="499.0" layoutY="338.0" mnemonicParsing="false" onAction="#removeProduct" prefHeight="38.0" prefWidth="90.0" style="-fx-background-color: black;" text="Remove" textFill="WHITE" />
+    <Button fx:id="btnHome" layoutX="513.0" layoutY="400.0" mnemonicParsing="false" onAction="#toHome" prefHeight="30.999900000002526" prefWidth="62.0" style="-fx-background-color: black;" text="Home" textFill="WHITE">
+      <font>
+        <Font size="14.0" />
+      </font>
+    </Button>
+    <Button fx:id="btnAddNew" font="$x1" layoutX="499.0" layoutY="283.0" mnemonicParsing="false" onAction="#addNewProduct" prefHeight="38.0" prefWidth="90.0" style="-fx-background-color: black;" text="Add New" textFill="WHITE" />
+    <Label fx:id="lblSelect" font="$x1" layoutX="481.0" layoutY="182.0" text="" textFill="RED" />
+    <Label layoutX="56.0" layoutY="29.0" text="Product List">
+      <font>
+        <Font size="25.0" />
+      </font>
+    </Label>
+  </children>
+</AnchorPane>

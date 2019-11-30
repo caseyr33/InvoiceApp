@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="447.0" prefWidth="510.0" style="-fx-background-color: #858585;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AddProductController">
+  <!-- TODO Add Nodes -->
+  <children>
+    <Label layoutX="148.0" layoutY="29.0" text="Add New Product">
+      <font>
+        <Font size="25.0" />
+      </font>
+    </Label>
+    <TextField fx:id="txtDesc" layoutX="121.0" layoutY="134.0" prefHeight="43.0" prefWidth="268.0" promptText="Description" style="-fx-border-color: black;" />
+    <TextField fx:id="txtRate" layoutX="121.0" layoutY="226.0" prefHeight="34.0" prefWidth="134.0" promptText="Rate" style="-fx-border-color: black;" />
+    <TextField fx:id="txtId" layoutX="305.0" layoutY="226.0" prefHeight="34.0" prefWidth="84.0" promptText="ID" style="-fx-border-color: black;" />
+    <Button id="txtBtn" fx:id="btnAddNew" layoutX="262.0" layoutY="293.0" mnemonicParsing="false" onAction="#addNew" prefHeight="34.0" style="-fx-background-color: black;" text="Add to Products" textFill="WHITE">
+      <font>
+        <Font size="14.0" />
+      </font>
+    </Button>
+    <Label layoutX="121.0" layoutY="102.0" text="Enter Product">
+      <font>
+        <Font size="15.0" fx:id="x1" />
+      </font>
+    </Label>
+    <Label font="$x1" layoutX="121.0" layoutY="202.0" text="Rate" />
+    <Label fx:id="lablMissing" layoutX="167.0" layoutY="301.0" text="" textFill="#ff3333">
+      <font>
+        <Font size="13.0" fx:id="x2" />
+      </font>
+    </Label>
+    <Button id="txtBtn" fx:id="BtnCancel" font="$x2" layoutX="324.0" layoutY="344.0" mnemonicParsing="false" onAction="#toView" prefHeight="28.0" style="-fx-background-color: black;" text="Cancel" textFill="WHITE" />
+    <Label font="$x1" layoutX="305.0" layoutY="202.0" text="ProductID" />
+  </children>
+</AnchorPane>

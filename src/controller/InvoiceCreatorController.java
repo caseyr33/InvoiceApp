@@ -79,6 +79,7 @@ public class InvoiceCreatorController {
 	private Label warningLabel;
 	@FXML
 	private Button searchButton;
+	private static boolean paidOnDelivery;
 
 	private ObservableList<String> productNames = FXCollections.observableArrayList();
 	private ObservableList<Product> products = FXCollections.observableArrayList();
@@ -120,7 +121,7 @@ public class InvoiceCreatorController {
 				prod = prod.concat(String.valueOf(prodID) + "," + quan.getText() + ";");
 			}
 			// handles paidondelivery and net15 radio button input
-			boolean paidOnDelivery;
+
 			if (tg.getSelectedToggle().equals(paidOnDeliveryButton)) {
 				paidOnDelivery = true;
 			} else {
@@ -202,6 +203,9 @@ public class InvoiceCreatorController {
 				}
 			}
 
+			//handles pdf
+			PdfGenerator.init(emailAddress.getText(), nameCompany.getText(), Date.valueOf(date.getValue()) + "\t"
+					+ total.getText(), prodStr, invoiceNo);
 			//handles emails
 			EmailController.init(emailAddress.getText(), nameCompany.getText(), Date.valueOf(date.getValue()) + "\t"
 					+ total.getText() + "\t" + selectedButton.getText() + "\t\n" + prodStr, invoiceNo); // executes email
@@ -336,4 +340,8 @@ public class InvoiceCreatorController {
 		MS, MT, NC, ND, NE, NH, NJ, NM, NV, NY, OH, OK, OR, PA, PR, RI, SC, SD, TN, TX, UM, UT, VA, VI, VT, WA, WI, WV,
 		WY;
 	}
+	public static boolean getPaymentType() {
+		return paidOnDelivery;
+	}
+	
 }

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="650.0" prefWidth="738.0" style="-fx-background-color: #858585;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ViewUsersController">
+  <!-- TODO Add Nodes -->
+  <children>
+    <TableView fx:id="users" layoutX="255.0" layoutY="64.0" prefHeight="473.0" prefWidth="406.0" style="-fx-border-color: black;">
+      <columns>
+        <TableColumn fx:id="colName" maxWidth="5000.0" minWidth="10.0" prefWidth="158.0" text="Name" />
+        <TableColumn fx:id="colUsername" maxWidth="5000.0" minWidth="10.0" prefWidth="144.0" text="Username" />
+        <TableColumn fx:id="colAdmin" maxWidth="5000.0" minWidth="10.0" prefWidth="104.0" text="Admin" />
+      </columns>
+    </TableView>
+    <Button fx:id="btnEdit" layoutX="93.0" layoutY="97.0" mnemonicParsing="false" onAction="#editUser" prefHeight="38.0" prefWidth="90.0" style="-fx-background-color: black;" text="Edit" textFill="WHITE">
+      <font>
+        <Font size="15.0" fx:id="x1" />
+      </font>
+    </Button>
+    <Button fx:id="btnRemove" font="$x1" layoutX="93.0" layoutY="208.0" mnemonicParsing="false" onAction="#removeUser" prefHeight="38.0" prefWidth="90.0" style="-fx-background-color: black;" text="Remove" textFill="WHITE" />
+    <Button fx:id="btnHome" font="$x1" layoutX="100.0" layoutY="270.0" mnemonicParsing="false" onAction="#toHome" prefHeight="31.0" prefWidth="76.0" style="-fx-background-color: black;" text="Home" textFill="WHITE" />
+    <Button fx:id="btnAddNew" font="$x1" layoutX="93.0" layoutY="153.0" mnemonicParsing="false" onAction="#addNewUser" prefHeight="38.0" prefWidth="90.0" style="-fx-background-color: black;" text="Add New" textFill="WHITE" />
+  </children>
+</AnchorPane>
