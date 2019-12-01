@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="paneAddUser" disable="false" prefHeight="542.0" prefWidth="500.0" style="-fx-background-color: #858585;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.EditUserController">
+<AnchorPane id="paneAddUser" disable="false" prefHeight="542.0" prefWidth="500.0" style="-fx-background-color: #858585;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.EditUserController">
   <!-- TODO Add Nodes -->
   <children>
     <Label layoutX="134.0" layoutY="22.0" text="Edit User Information">

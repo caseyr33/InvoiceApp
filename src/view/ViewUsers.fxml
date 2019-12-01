@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="650.0" prefWidth="738.0" style="-fx-background-color: #858585;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ViewUsersController">
+<AnchorPane prefHeight="650.0" prefWidth="738.0" style="-fx-background-color: #858585;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ViewUsersController">
   <!-- TODO Add Nodes -->
   <children>
     <TableView fx:id="users" layoutX="255.0" layoutY="64.0" prefHeight="473.0" prefWidth="406.0" style="-fx-border-color: black;">

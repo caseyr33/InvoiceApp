@@ -23,8 +23,6 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import model.Product;
 import model.ProductMainModel;
-import model.UserMainModel;
-import model.ViewUserModel;
 
 public class ViewProductsController implements Initializable {
 
