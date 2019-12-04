@@ -11,8 +11,8 @@
       <TextField fx:id="searchBox" layoutX="22.0" layoutY="26.0" prefHeight="25.0" prefWidth="272.0" style="-fx-border-color: black;" />
       <Button fx:id="searchButton" layoutX="294.0" layoutY="26.0" mnemonicParsing="false" onAction="#searchCustomer" style="-fx-background-color: black;" text="Search" textFill="WHITE" />
       <Button fx:id="addNewCust" layoutX="496.0" layoutY="26.0" mnemonicParsing="false" onAction="#addCustomer" style="-fx-background-color: black;" text="Add New" textFill="WHITE" />
-<!--       <Button fx:id="editCust" layoutX="574.0" layoutY="26.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="66.0" text="Edit" /> -->
-<!--       <Button fx:id="deleteButton" layoutX="653.0" layoutY="26.0" mnemonicParsing="false" onAction="#deleteCustomer" text="Delete" /> -->
+       <Button fx:id="editCust" layoutX="574.0" layoutY="26.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="66.0" text="Edit" /> 
+       <Button fx:id="deleteButton" layoutX="653.0" layoutY="26.0" mnemonicParsing="false" onAction="#deleteCustomer" text="Delete" /> 
       <TableView fx:id="customerTable" layoutX="27.0" layoutY="73.0" prefHeight="310.0" prefWidth="744.0" style="-fx-border-color: black;">
         <columns>
           <TableColumn fx:id="nameTable" prefWidth="118.0" text="Company Name" />
